@@ -2,6 +2,7 @@
   "compilerOptions": {
     "rootDir": "./",
     "baseUrl": "./",
+    "jsx": "react",
     "paths": {
       "src": ["./src"]
     }

@@ -1,0 +1,101 @@
+@mixin gaps {
+  padding: 0 16px;
+  margin: 0 auto;
+  @media (max-width: $tablets) {
+    padding: 0 10px;
+  }
+}
+
+@mixin container {
+  max-width: 1037px;
+  @include gaps;
+}
+
+@mixin list-container {
+  max-width: 904px;
+  @include gaps;
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+
+@mixin button {
+  display: inline-block;
+  border: none;
+  color: #fff;
+  text-decoration: none;
+  background-color: $accent;
+  font-size: $font-size;
+  text-transform: uppercase;
+  border-radius: 3px;
+  text-align: center;
+  position: relative;
+  outline: none;
+  cursor: pointer;
+
+  transform: translateZ(0);
+  transition: color 0.5s ease;
+
+  &:before {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: lighten($accent, 10);
+    border-radius: 3px;
+    content: '';
+    transform: scaleY(0);
+    transform-origin: 100% 0;
+    transition: transform 0.5s ease-out;
+    z-index: -1;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    cursor: pointer;
+
+    &:before {
+      transform: scaleY(1);
+      transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+    }
+  }
+}
+
+@mixin button-dark {
+  @include button;
+  background: $dark-blue;
+
+  &:before {
+    background: lighten($color: $dark-blue, $amount: 10);
+
+  }
+}
+
+@mixin button-light {
+  @include button;
+  background: transparent;
+  border: 1px solid $accent;
+  color: #535353;
+  font-family: $font;
+  font-size: $font-size;
+
+  &:hover {
+    color: #ffffff;
+  }
+
+  &:before {
+    background: $accent;
+
+  }
+}
