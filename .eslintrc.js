@@ -8,7 +8,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['js','jsx'],
+        extensions: ['js'],
       },
       alias: {
         map: [['src', './src']],
@@ -40,5 +40,11 @@ module.exports = {
     "react/forbid-prop-types": 0,
     "react/require-default-props": 0,
     "no-unused-expressions": 'error',
+    "react/prop-types": 0,
+    "jsx-a11y/anchor-is-valid": [ "error", {
+      "components": [ "Link" ],
+      "specialLink": [ "to" ]
+    }]
   },
+  parser: 'babel-eslint',
 };
