@@ -11,7 +11,7 @@ import { routes } from '../routes';
 
 const Auth = () => (
   <div className="AuthWrapper">
-    <Header isWhite />
+    <Header isLight />
     <Switch>
       <Route path={routes.register} component={Register} />
       <Route path={routes.login} component={Login} />

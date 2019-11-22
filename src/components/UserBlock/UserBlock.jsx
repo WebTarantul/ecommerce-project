@@ -11,7 +11,7 @@ import s from './UserBlock.module.scss';
 const UserBlock = ({ hoverUser, user }) => {
   const store = useStore();
   const onLogout = () => {
-    Api.Auth.logOut();
+    Api.Auth.logout();
     store.viewer.removeViewer();
   };
   return (

@@ -18,6 +18,7 @@ export const RootStore = t
           const res = await Api.Account.getUser();
           self.viewer.setViewer(res.data);
         }
+        return;
       } catch (error) {
         console.error(error);
       }

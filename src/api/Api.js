@@ -14,10 +14,6 @@ export const Auth = {
     return !!this._token;
   },
 
-  logOut() {
-    this.setToken(null);
-  },
-
   login({ email, password }) {
     return axios.post('/api/auth/login', {
       email,
@@ -31,6 +27,11 @@ export const Auth = {
       email,
       password,
     });
+  },
+
+  logout() {
+    this._token = null;
+    localStorage.removeItem('___token');
   },
 };
 
