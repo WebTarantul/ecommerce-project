@@ -9,9 +9,10 @@
   align-items: center;
 }
 
-.btn{
- @include button;
- padding: 7.5px 48.9px;
+
+.btn {
+  @include button;
+  padding: 7.5px 48.9px;
 }
 
 .favorite {
@@ -21,7 +22,9 @@
   align-items: center;
   justify-content: center;
   transition: all .3s;
-  &:hover{
+  padding: 0;
+
+  &:hover {
     transform: scale(1.15);
   }
 }
@@ -31,7 +34,7 @@
   display: inline-block;
   padding: 5px 0;
   color: #ffffff;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 400;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -61,12 +64,26 @@
   }
 }
 
-.darkText{
+.item {
+  margin: 0 20.5px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.darkText {
   color: #000;
-  .login{
+
+  .login {
     color: $font-color;
   }
-  .favoriteOver{
+
+  .favoriteOver {
     fill: #2e2e2e;
   }
 }

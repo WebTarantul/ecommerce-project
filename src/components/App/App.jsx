@@ -1,21 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import { Router } from 'src/scenes/routes';
+import { onSnapshot } from 'mobx-state-tree';
+import { Provider, createStore } from 'src/stores/createStore';
 import s from './App.module.scss';
-import Header from '../Header/Header';
 
-const App = (props) => (
-  <div className={s.wrapper}>
-    <Router />
-  </div>
-);
+const rootStore = createStore();
 
-App.propTypes = {
-  // bla: PropTypes.string,
+const App = () => {
+  onSnapshot(rootStore, (snap) => console.log(snap));
+  useEffect(() => {
+    rootStore.bootstrap();
+  }, []);
+  return (
+    <div className={s.wrapper}>
+      <Provider value={rootStore}>
+        <Router />
+      </Provider>
+    </div>
+  );
 };
-
-App.defaultProps = {
-  // bla: 'test',
-};
-
 export default App;

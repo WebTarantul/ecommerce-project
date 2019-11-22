@@ -1,15 +1,13 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
+import React, {useState, forwardRef} from 'react';
 import s from './FormInput.module.scss';
 import Icon from 'src/components/Icon/Icon';
 
-const FormInput = ({
+const FormInput =  ({
   children,
   label,
-  labelClassName = '',
   name,
   ...props
-}) => {
+},ref) => {
   const [isClosePassword, setIsClosePassword] = useState(true);
   const passwordType = isClosePassword ? 'password' : 'text';
   const toggleVisiblePassword = () => {
@@ -39,7 +37,7 @@ const FormInput = ({
               </button>
             </>
           ) : (
-            <input type="text" name={name} {...props} />
+            <input type="text" name={name} {...props} ref={ref} />
           )}
 
           {children}
@@ -49,12 +47,5 @@ const FormInput = ({
   );
 };
 
-FormInput.propTypes = {
-  // bla: PropTypes.string,
-};
 
-FormInput.defaultProps = {
-  // bla: 'test',
-};
-
-export default FormInput;
+export default forwardRef(FormInput);

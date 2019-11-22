@@ -1,17 +1,25 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import { Formik, ErrorMessage } from 'formik';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef, useEffect } from 'react';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { Link, useHistory } from 'react-router-dom';
+import { useStore } from 'src/stores/createStore';
 import { routes } from 'src/scenes/routes';
+import { observer } from 'mobx-react';
 import CenteringOfForm from '../CenteringOfForm/CenteringOfForm';
 import FTextInput from '../FForm/components/FTextInput/FTextInput';
 import FForm from '../FForm/FForm';
 import FormButton from '../Form/components/FormButton/FormButton';
 import FormFooter from '../FormFooter/FormFooter';
-import * as Yup from 'yup';
 import FErrorMessage from '../FForm/components/FErrorMessage/FErrorMessage';
+import Spinner from '../Spinner';
+import s from './Register.module.scss';
 
 const Register = () => {
+  const {
+    auth: { register },
+  } = useStore();
+  const history = useHistory();
+
   const formikProps = {
     initialValues: {
       email: '',
@@ -32,50 +40,59 @@ const Register = () => {
         .oneOf([Yup.ref('password')], 'Passwords are not the same!')
         .required('Password confirmation is required!'),
     }),
-    onSubmit: (values, {setSubmitting, setErrors, setStatus, resetForm}) => {
-      console.log({values})
+    onSubmit: async (values, { resetForm }) => {
+      await register.run(values);
       resetForm();
-    }
+      history.push(routes.home);
+    },
   };
+
+  const refEmail = useRef(null);
+  useEffect(() => {
+    refEmail.current.focus();
+  }, []);
 
   return (
     <>
       <CenteringOfForm>
         <Formik {...formikProps}>
-          {(formik) => (
-            <FForm title="Register" >
-              <FTextInput
-                name="email"
-                type="email"
-                label="Email"
-                placeholder="Example@gmail.com"
-              />
-              <FErrorMessage name="email" />
-              <FTextInput
-                name="fullName"
-                type="text"
-                label="Full name"
-                placeholder="Tony Stark"
-                autoComplete="username"
-              />
-              <FErrorMessage name="fullName" />
-              <FTextInput
-                name="password"
-                type="password"
-                label="Password"
-                autoComplete="new-password"
-              />
-              <FErrorMessage name="password" />
-              <FTextInput
-                name="confirmPassword"
-                type="password"
-                label="Password again"
-                autoComplete="new-password"
-              />
-              <FErrorMessage name="confirmPassword" />
+          <FForm title="Register">
+            <FTextInput
+              name="email"
+              type="email"
+              label="Email"
+              placeholder="Example@gmail.com"
+              ref={refEmail}
+            />
+            <FErrorMessage name="email" />
+            <FTextInput
+              name="fullName"
+              type="text"
+              label="Full name"
+              placeholder="Tony Stark"
+              autoComplete="username"
+            />
+            <FErrorMessage name="fullName" />
+            <FTextInput
+              name="password"
+              type="password"
+              label="Password"
+              autoComplete="new-password"
+            />
+            <FErrorMessage name="password" />
+            <FTextInput
+              name="confirmPassword"
+              type="password"
+              label="Password again"
+              autoComplete="new-password"
+            />
+            <FErrorMessage name="confirmPassword" />
+            {register.isLoading ? (
+              <Spinner className={s.spinner} />
+            ) : (
               <FormButton>Register</FormButton>
-            </FForm>
-          )}
+            )}
+          </FForm>
         </Formik>
         <FormFooter>
           I already have an account,
@@ -86,4 +103,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default observer(Register);

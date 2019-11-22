@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { observer } from 'mobx-react';
+import { Link, useHistory } from 'react-router-dom';
+import { routes } from 'src/scenes/routes';
+import { useStore } from 'src/stores/createStore';
 import CenteringOfForm from '../CenteringOfForm/CenteringOfForm';
-import Form from '../Form/Form';
 import FormButton from '../Form/components/FormButton/FormButton';
 import FormInput from '../Form/components/FormInput/FormInput';
-import { Link } from 'react-router-dom';
-import s from './Login.module.scss';
+import Form from '../Form/Form';
 import FormFooter from '../FormFooter/FormFooter';
-import { routes } from 'src/scenes/routes';
+import s from './Login.module.scss';
+import Spinner from '../Spinner';
 
-const Login = (props) => {
+const Login = () => {
+  const store = useStore();
+  const history = useHistory();
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -21,15 +26,24 @@ const Login = (props) => {
     });
   };
 
-  const submitHandler = (evt) => {
+  const submitHandler = async (evt, { email, password }) => {
     evt.preventDefault();
-    console.log('submit');
+    await store.auth.login.run({ email, password });
+    history.push(routes.home);
   };
+
+  const refEmail = useRef(null);
+  useEffect(() => {
+    refEmail.current.focus();
+  }, []);
 
   return (
     <div className={s.wrapper}>
       <CenteringOfForm>
-        <Form title="Login" onSubmit={submitHandler}>
+        <Form
+          title="Login"
+          onSubmit={(evt) => submitHandler(evt, values)}
+        >
           <FormInput
             label="Email"
             placeholder="Example@gmail.com"
@@ -38,6 +52,7 @@ const Login = (props) => {
             value={values.email}
             onChange={(evt) => changeHandler('email', evt)}
             autoComplete="username"
+            ref={refEmail}
           />
           <FormInput
             className={s.password}
@@ -48,8 +63,14 @@ const Login = (props) => {
             value={values.password}
             onChange={(evt) => changeHandler('password', evt)}
           />
-          <Link className={s.resetPassword} to={routes.resetPassword} >Don’t remember password?</Link>
-          <FormButton>Continue</FormButton>
+          <Link className={s.resetPassword} to={routes.resetPassword}>
+            Don’t remember password?
+          </Link>
+          {store.auth.login.isLoading ? (
+            <Spinner className={s.spinner} />
+          ) : (
+            <FormButton>Continue</FormButton>
+          )}
         </Form>
 
         <FormFooter>
@@ -61,4 +82,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default observer(Login);
