@@ -1,17 +1,30 @@
-import { types, flow, getRoot } from 'mobx-state-tree';
+import { types, flow, getRoot, getParent } from 'mobx-state-tree';
 import Api from 'src/api';
 import { asyncModel } from '../utils';
 
-export const AuthStore = types.model('AuthStore', {
-  login: asyncModel(loginFlow),
-  register: asyncModel(registerFlow),
-});
+export const AuthStore = types
+  .model('AuthStore', {
+    login: asyncModel(loginFlow),
+    register: asyncModel(registerFlow),
+    isLoggedIn: false,
+  })
+  .actions((self) => ({
+    setIsLoggedIn(isLogged) {
+      self.isLoggedIn = isLogged;
+    },
+    logout() {
+      Api.Auth.logout();
+      self.setIsLoggedIn(false);
+      getRoot(self).viewer.removeViewer();
+    },
+  }));
 
 function loginFlow({ email, password }) {
   return flow(function* login(store) {
     const res = yield Api.Auth.login({ email, password });
     Api.Auth.setToken(res.data.token);
     getRoot(store).viewer.setViewer(res.data.user);
+    getParent(store).setIsLoggedIn(true);
   });
 }
 

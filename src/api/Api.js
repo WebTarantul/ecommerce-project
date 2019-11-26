@@ -31,7 +31,9 @@ export const Auth = {
 
   logout() {
     this._token = null;
+    // eslint-disable-next-line no-undef
     localStorage.removeItem('___token');
+    axios.defaults.headers.common.Authorization = undefined;
   },
 };
 

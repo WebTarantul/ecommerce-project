@@ -1,3 +1,5 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import React from 'react';
 import Search from 'src/components/Header/components/Search/Search';
 import Header from 'src/components/Header/Header';

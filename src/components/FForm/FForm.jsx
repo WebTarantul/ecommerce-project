@@ -11,5 +11,4 @@ const FForm = ({ children, title, classNameWrapper, ...props }) => (
   </div>
 );
 
-
 export default FForm;

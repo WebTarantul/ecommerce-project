@@ -8,5 +8,4 @@ const FErrorMessage = (props) => (
   </span>
 );
 
-
 export default FErrorMessage;

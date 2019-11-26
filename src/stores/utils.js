@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree';
+import { types, onSnapshot, applySnapshot } from 'mobx-state-tree';
 
 export function asyncModel(thunk, auto = true) {
   const AsyncModel = types
@@ -39,4 +39,32 @@ export function asyncModel(thunk, auto = true) {
     }));
 
   return types.optional(AsyncModel, {});
+}
+
+export function createPersist(store) {
+  onSnapshot(store, (snapshot) => {
+    localStorage.setItem(
+      '___persist',
+      JSON.stringify({
+        viewer: {
+          user: snapshot.viewer && snapshot.viewer.user,
+        },
+        auth: {
+          isLoggedIn: snapshot.auth && snapshot.auth.isLoggedIn,
+        },
+      }),
+    );
+    console.log(snapshot);
+  });
+
+  function rehydrate() {
+    const snapshot = localStorage.getItem('___persist');
+    if (snapshot) {
+      applySnapshot(store, JSON.parse(snapshot));
+    }
+  }
+
+  return {
+    rehydrate,
+  };
 }

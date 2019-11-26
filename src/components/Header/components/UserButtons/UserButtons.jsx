@@ -22,7 +22,7 @@ const UserButtons = ({ headerIsLight }) => {
         Sell
       </Link>
 
-      {store.viewer.user ? (
+      {store.auth.isLoggedIn ? (
         <Avatar
           className={s.item}
           onMouseLeave={toggleHover}

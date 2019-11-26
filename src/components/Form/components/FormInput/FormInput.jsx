@@ -1,13 +1,11 @@
-import React, {useState, forwardRef} from 'react';
-import s from './FormInput.module.scss';
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+import React, { useState, forwardRef } from 'react';
 import Icon from 'src/components/Icon/Icon';
+import s from './FormInput.module.scss';
 
-const FormInput =  ({
-  children,
-  label,
-  name,
-  ...props
-},ref) => {
+const FormInput = ({ children, label, name, ...props }, ref) => {
   const [isClosePassword, setIsClosePassword] = useState(true);
   const passwordType = isClosePassword ? 'password' : 'text';
   const toggleVisiblePassword = () => {
@@ -21,7 +19,12 @@ const FormInput =  ({
         <span className={s.inputInner}>
           {props.type === 'password' ? (
             <>
-              <input name={name} {...props} type={passwordType} />
+              <input
+                name={name}
+                id={name}
+                {...props}
+                type={passwordType}
+              />
               <button
                 type="button"
                 className={s.eyeButton}
@@ -29,10 +32,13 @@ const FormInput =  ({
               >
                 {isClosePassword ? (
                   <Icon className={s.icon} name="eye" />
-
-                ):(
-                  <Icon className={s.icon} fillBody="#000" fillCenter="#fff" name="eye" />
-
+                ) : (
+                  <Icon
+                    className={s.icon}
+                    fillBody="#000"
+                    fillCenter="#fff"
+                    name="eye"
+                  />
                 )}
               </button>
             </>
@@ -46,6 +52,5 @@ const FormInput =  ({
     </div>
   );
 };
-
 
 export default forwardRef(FormInput);

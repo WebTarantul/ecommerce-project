@@ -1,4 +1,4 @@
-import { types as t, types } from 'mobx-state-tree';
+import { types as t, types, applySnapshot } from 'mobx-state-tree';
 import Api from 'src/api';
 import { AuthStore } from './Auth/AuthStore';
 import { ViewerStore } from './Auth/ViewerStore';
@@ -17,8 +17,11 @@ export const RootStore = t
           Api.Auth.setToken(token);
           const res = await Api.Account.getUser();
           self.viewer.setViewer(res.data);
+          self.auth.setIsLoggedIn(true);
+        } else {
+          applySnapshot(self, {});
         }
-        return;
+        // return;
       } catch (error) {
         console.error(error);
       }

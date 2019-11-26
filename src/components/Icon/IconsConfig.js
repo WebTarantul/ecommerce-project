@@ -7,7 +7,7 @@ export default {
     const textFill = isDark ? '#262525' : '#ffffff';
     return (
       <svg
-        className={`logo`}
+        className="logo"
         width="102"
         height="42"
         viewBox="0 0 102 42"
@@ -215,7 +215,14 @@ export default {
       </g>
     </svg>
   ),
-  eye: ({width="24", height="15", fillEdge="#000", fillBody="white",fillCenter="#000", ...props}) => (
+  eye: ({
+    width = '24',
+    height = '15',
+    fillEdge = '#000',
+    fillBody = 'white',
+    fillCenter = '#000',
+    ...props
+  }) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={width}
