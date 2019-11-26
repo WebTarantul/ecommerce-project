@@ -19,7 +19,10 @@ export const RootStore = t
           self.viewer.setViewer(res.data);
           self.auth.setIsLoggedIn(true);
         } else {
-          applySnapshot(self, {});
+          applySnapshot(self, {
+            viewer: { user: undefined },
+            auth: { isLoggedIn: false },
+          });
         }
         // return;
       } catch (error) {

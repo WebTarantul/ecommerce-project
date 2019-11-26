@@ -7,15 +7,18 @@ import Register from 'src/components/Register/Register';
 import Login from 'src/components/Login/Login';
 import Header from 'src/components/Header/Header';
 import withFooter from 'src/components/HOCs/withFooter/withFooter';
-import { routes } from '../routes';
+import { routes, PrivateRoute } from '../routes';
 
 const Auth = () => (
   <div className="AuthWrapper">
     <Header isLight />
     <Switch>
-      <Route path={routes.register} component={Register} />
-      <Route path={routes.login} component={Login} />
-      <Route path={routes.resetPassword} component={ResetPassword} />
+      <PrivateRoute path={routes.register} component={Register} />
+      <PrivateRoute path={routes.login} component={Login} />
+      <PrivateRoute
+        path={routes.resetPassword}
+        component={ResetPassword}
+      />
     </Switch>
   </div>
 );
