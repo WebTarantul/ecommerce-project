@@ -1,14 +1,14 @@
+import { observer } from 'mobx-react';
 import React from 'react';
 import {
   BrowserRouter,
+  Redirect,
   Route,
   Switch,
-  Redirect,
 } from 'react-router-dom';
 import { useStore } from 'src/stores/createStore';
-import { observer } from 'mobx-react';
 import Auth from './Auth/Auth';
-import Home from './Home/Home';
+import Main from './Main/Main';
 
 export const routes = {
   home: '/',
@@ -16,6 +16,7 @@ export const routes = {
   login: '/auth/login',
   register: '/auth/register',
   resetPassword: '/auth/password',
+  product: '/products/:id',
 };
 
 export const PrivateRoute = observer(
@@ -36,13 +37,13 @@ export const PrivateRoute = observer(
   },
 );
 
-export const Router = () => {
+export const Router = observer(() => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path={routes.home} component={Home} exact />
         <PrivateRoute path={routes.auth} component={Auth} />
+        <Route component={Main} />
       </Switch>
     </BrowserRouter>
   );
-};
+});

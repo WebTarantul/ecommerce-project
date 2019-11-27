@@ -12,8 +12,13 @@
 }
 
 @mixin list-container {
-  max-width: 904px;
+  max-width: 887px;
+  width: 100%;
+  box-sizing: border-box;
   @include gaps;
+  @media (max-width: $tablets) {
+    max-width: 875px;
+  }
 }
 
 @mixin visually-hidden {

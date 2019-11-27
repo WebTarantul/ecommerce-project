@@ -2,11 +2,15 @@ import { types as t, types, applySnapshot } from 'mobx-state-tree';
 import Api from 'src/api';
 import { AuthStore } from './Auth/AuthStore';
 import { ViewerStore } from './Auth/ViewerStore';
+import { LatestProductsStore } from './Products/LatestProductsStore';
+import { EntitiesStore } from './EntitiesStore';
 
 export const RootStore = t
   .model('RootStore', {
     auth: types.optional(AuthStore, {}),
     viewer: types.optional(ViewerStore, {}),
+    latestProducts: types.optional(LatestProductsStore, {}),
+    entities: types.optional(EntitiesStore, {}),
   })
   .actions((self) => ({
     async bootstrap() {
@@ -19,10 +23,8 @@ export const RootStore = t
           self.viewer.setViewer(res.data);
           self.auth.setIsLoggedIn(true);
         } else {
-          applySnapshot(self, {
-            viewer: { user: undefined },
-            auth: { isLoggedIn: false },
-          });
+          self.viewer.setViewer(undefined);
+          self.auth.setIsLoggedIn(false);
         }
         // return;
       } catch (error) {

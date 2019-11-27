@@ -1,0 +1,16 @@
+@import '../../assets/styles/component-base.scss';
+
+.productList {
+  @include list-container;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 209px);
+  grid-gap: 6.3px;
+  justify-content: center;
+
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}

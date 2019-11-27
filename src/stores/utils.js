@@ -1,4 +1,10 @@
-import { types, onSnapshot, applySnapshot } from 'mobx-state-tree';
+import {
+  types,
+  onSnapshot,
+  applySnapshot,
+  getParent,
+  getRoot,
+} from 'mobx-state-tree';
 
 export function asyncModel(thunk, auto = true) {
   const AsyncModel = types
@@ -8,7 +14,11 @@ export function asyncModel(thunk, auto = true) {
     })
     .actions((self) => ({
       run(...args) {
-        const promise = thunk(...args)(self);
+        const promise = thunk(...args)(
+          self,
+          getParent(self),
+          getRoot(self),
+        );
         if (auto) {
           self._auto(promise);
         }
@@ -43,6 +53,7 @@ export function asyncModel(thunk, auto = true) {
 
 export function createPersist(store) {
   onSnapshot(store, (snapshot) => {
+    // eslint-disable-next-line no-undef
     localStorage.setItem(
       '___persist',
       JSON.stringify({
@@ -54,10 +65,10 @@ export function createPersist(store) {
         },
       }),
     );
-    console.log(snapshot);
   });
 
   function rehydrate() {
+    // eslint-disable-next-line no-undef
     const snapshot = localStorage.getItem('___persist');
     if (snapshot) {
       applySnapshot(store, JSON.parse(snapshot));
@@ -67,4 +78,19 @@ export function createPersist(store) {
   return {
     rehydrate,
   };
+}
+
+export function createCollection(ofModel, asyncModels = {}) {
+  const collection = types
+    .model('CollectionModel', {
+      collection: types.map(ofModel),
+      ...asyncModels,
+    })
+    .actions((self) => ({
+      add(key, value) {
+        self.collection.set(String(key), value);
+      },
+    }));
+
+  return types.optional(collection, {});
 }
