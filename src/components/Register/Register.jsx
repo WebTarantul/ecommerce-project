@@ -1,15 +1,31 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Formik, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { routes } from 'src/scenes/routes';
+import * as Yup from 'yup';
 import CenteringOfForm from '../CenteringOfForm/CenteringOfForm';
+import FErrorMessage from '../FForm/components/FErrorMessage/FErrorMessage';
+import FFormButton from '../FForm/components/FFormButton/FFormButton';
+import FPasswordInput from '../FForm/components/FPasswordInput/FPasswordInput';
 import FTextInput from '../FForm/components/FTextInput/FTextInput';
 import FForm from '../FForm/FForm';
-import FormButton from '../Form/components/FormButton/FormButton';
 import FormFooter from '../FormFooter/FormFooter';
-import * as Yup from 'yup';
-import FErrorMessage from '../FForm/components/FErrorMessage/FErrorMessage';
+
+const validationSchema = Yup.object({
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Email is required'),
+  fullName: Yup.string(),
+  password: Yup.string()
+    .min(6, 'Password has to be longer than 6 characters')
+    .required('Password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password')], 'Passwords are not the same!')
+    .required('Password confirmation is required!'),
+});
 
 const Register = () => {
   const formikProps = {
@@ -20,62 +36,48 @@ const Register = () => {
       confirmPassword: '',
     },
 
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email('Invalid email address')
-        .required('Email is required'),
-      fullName: Yup.string(),
-      password: Yup.string()
-        .min(6, 'Password has to be longer than 6 characters')
-        .required('Password is required'),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password')], 'Passwords are not the same!')
-        .required('Password confirmation is required!'),
-    }),
-    onSubmit: (values, {setSubmitting, setErrors, setStatus, resetForm}) => {
-      console.log({values})
+    validationSchema,
+    onSubmit: (values, { resetForm }) => {
       resetForm();
-    }
+    },
   };
 
   return (
     <>
       <CenteringOfForm>
         <Formik {...formikProps}>
-          {(formik) => (
-            <FForm title="Register" >
-              <FTextInput
-                name="email"
-                type="email"
-                label="Email"
-                placeholder="Example@gmail.com"
-              />
-              <FErrorMessage name="email" />
-              <FTextInput
-                name="fullName"
-                type="text"
-                label="Full name"
-                placeholder="Tony Stark"
-                autoComplete="username"
-              />
-              <FErrorMessage name="fullName" />
-              <FTextInput
-                name="password"
-                type="password"
-                label="Password"
-                autoComplete="new-password"
-              />
-              <FErrorMessage name="password" />
-              <FTextInput
-                name="confirmPassword"
-                type="password"
-                label="Password again"
-                autoComplete="new-password"
-              />
-              <FErrorMessage name="confirmPassword" />
-              <FormButton>Register</FormButton>
-            </FForm>
-          )}
+          <FForm title="Register">
+            <FTextInput
+              name="email"
+              type="email"
+              label="Email"
+              placeholder="Example@gmail.com"
+            />
+            <FErrorMessage name="email" />
+            <FTextInput
+              name="fullName"
+              type="text"
+              label="Full name"
+              placeholder="Tony Stark"
+              autoComplete="username"
+            />
+            <FErrorMessage name="fullName" />
+            <FPasswordInput
+              name="password"
+              type="password"
+              label="Password"
+              autoComplete="new-password"
+            />
+            <FErrorMessage name="password" />
+            <FPasswordInput
+              name="confirmPassword"
+              type="password"
+              label="Password again"
+              autoComplete="new-password"
+            />
+            <FErrorMessage name="confirmPassword" />
+            <FFormButton>Register</FFormButton>
+          </FForm>
         </Formik>
         <FormFooter>
           I already have an account,

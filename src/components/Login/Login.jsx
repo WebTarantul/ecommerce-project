@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import * as Yup from 'yup';
 import CenteringOfForm from '../CenteringOfForm/CenteringOfForm';
 import Form from '../Form/Form';
 import FormButton from '../Form/components/FormButton/FormButton';
@@ -8,16 +9,37 @@ import s from './Login.module.scss';
 import FormFooter from '../FormFooter/FormFooter';
 import { routes } from 'src/scenes/routes';
 
+const schema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Password is required'),
+  password: Yup.string()
+    .min(6, 'Password has to be longer than 6 characters')
+    .required('Password is required'),
+});
+
 const Login = (props) => {
   const [values, setValues] = useState({
     email: '',
     password: '',
   });
+  const [errors, setErrors] = useState({});
+  const [showError, setShowError] = useState({});
+  const [isValid, setIsValid] = useState(false);
 
   const changeHandler = (name, evt) => {
     setValues({
       ...values,
       [name]: evt.target.value,
+    });
+
+    validation(values,setErrors,setIsValid);
+  };
+
+  const blurHandler = (name) => {
+    setShowError({
+      ...showError,
+      [name]: !!errors[name],
     });
   };
 
@@ -37,8 +59,10 @@ const Login = (props) => {
             required
             value={values.email}
             onChange={(evt) => changeHandler('email', evt)}
+            onBlur={() => blurHandler('email')}
             autoComplete="username"
           />
+          {errors.email && showError.email && <p className={s.error}>{errors.email}</p>}
           <FormInput
             className={s.password}
             label="Password"
@@ -47,9 +71,15 @@ const Login = (props) => {
             autoComplete="current-password"
             value={values.password}
             onChange={(evt) => changeHandler('password', evt)}
+            onBlur={() => blurHandler('password')}
           />
-          <Link className={s.resetPassword} to={routes.resetPassword} >Don’t remember password?</Link>
-          <FormButton>Continue</FormButton>
+          {errors.password && showError.password && (
+            <p className={s.error}>{errors.password}</p>
+          )}
+          <Link className={s.resetPassword} to={routes.resetPassword}>
+            Don’t remember password?
+          </Link>
+          <FormButton disabled={!isValid}>Continue</FormButton>
         </Form>
 
         <FormFooter>
@@ -62,3 +92,24 @@ const Login = (props) => {
 };
 
 export default Login;
+
+function validation(values, setErrors, setIsValid) {
+    schema.isValid(values).then((valid) => {
+      setIsValid(valid);
+    });
+
+    schema
+      .validate(values, {
+        abortEarly: false,
+      })
+      .then((fieldsValidated) => {
+        setErrors({});
+      })
+      .catch((errors) => {
+        let allErrors = {};
+        errors.inner.map((error) => {
+          allErrors[error.path] = error.message;
+        });
+        setErrors(allErrors);
+      });
+}
