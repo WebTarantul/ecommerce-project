@@ -11,6 +11,7 @@ import FErrorMessage from '../FForm/components/FErrorMessage/FErrorMessage';
 import FFormButton from '../FForm/components/FFormButton/FFormButton';
 import FPasswordInput from '../FForm/components/FPasswordInput/FPasswordInput';
 import FTextInput from '../FForm/components/FTextInput/FTextInput';
+import FInput from '../FForm/components/FInput/FInput';
 import FForm from '../FForm/FForm';
 import FormFooter from '../FormFooter/FormFooter';
 
@@ -47,14 +48,14 @@ const Register = () => {
       <CenteringOfForm>
         <Formik {...formikProps}>
           <FForm title="Register">
-            <FTextInput
+            <FInput
               name="email"
               type="email"
               label="Email"
               placeholder="Example@gmail.com"
             />
             <FErrorMessage name="email" />
-            <FTextInput
+            <FInput
               name="fullName"
               type="text"
               label="Full name"
@@ -62,14 +63,14 @@ const Register = () => {
               autoComplete="username"
             />
             <FErrorMessage name="fullName" />
-            <FPasswordInput
+            <FInput
               name="password"
               type="password"
               label="Password"
               autoComplete="new-password"
             />
             <FErrorMessage name="password" />
-            <FPasswordInput
+            <FInput
               name="confirmPassword"
               type="password"
               label="Password again"

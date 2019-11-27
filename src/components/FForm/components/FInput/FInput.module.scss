@@ -1,0 +1,24 @@
+.wrapper {
+  margin-top: 14px;
+  label{
+    display: flex;
+    flex-direction: column;
+
+    
+  }
+  .labelText {
+    margin-bottom: 5px;
+    
+    color: #303030;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+
+  .inputInner{
+    position: relative;
+  }
+  
+}/* your css code */
