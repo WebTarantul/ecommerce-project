@@ -18,7 +18,13 @@ const UserButtons = ({ headerIsLight }) => {
   const toggleHover = () => setHoverUser(!hoverUser);
   return (
     <div className={`${s.wrapper} ${s[darkModeClass]}`}>
-      <Link className={`${s.btn} ${s.item}`} to="">
+      <Link
+        className={`${s.btn} ${s.item}`}
+        to={{
+          pathname: routes.productAdd,
+          state: { modal: true },
+        }}
+      >
         Sell
       </Link>
 

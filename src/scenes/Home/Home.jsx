@@ -8,18 +8,13 @@ import s from './Home.module.scss';
 import { observer } from 'mobx-react';
 import LatestProducts from 'src/components/LatestProducts/LatestProducts';
 
-const Home = () => {
-  useEffect(() => {
-
-  }, []);
-  return (
-    <div className={s.wrapper}>
-      <Header>
-        <Search />
-      </Header>
-      <LatestProducts />
-    </div>
-  );
-};
+const Home = () => (
+  <div className={s.wrapper}>
+    <Header>
+      <Search />
+    </Header>
+    <LatestProducts />
+  </div>
+);
 
 export default observer(withFooter(Home));

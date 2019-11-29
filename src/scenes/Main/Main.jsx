@@ -7,11 +7,13 @@ import { Switch, Route } from 'react-router-dom';
 import { routes } from '../routes';
 import Home from '../Home/Home';
 import Product from '../Product/Product';
+import ProductAdd from '../ProductAdd/ProductAdd';
 
 const Main = () => (
   <div className="MainWrapper">
     <Switch>
       <Route path={routes.home} component={Home} exact />
+      <Route path={routes.productAdd} component={ProductAdd} exact/>
       <Route path={routes.product} component={Product} />
 
       <Route component={NotFound} />

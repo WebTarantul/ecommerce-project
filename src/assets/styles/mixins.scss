@@ -1,6 +1,7 @@
 @mixin gaps {
   padding: 0 16px;
   margin: 0 auto;
+
   @media (max-width: $tablets) {
     padding: 0 10px;
   }
@@ -16,6 +17,7 @@
   width: 100%;
   box-sizing: border-box;
   @include gaps;
+
   @media (max-width: $tablets) {
     max-width: 875px;
   }
@@ -73,6 +75,15 @@
     &:before {
       transform: scaleY(1);
       transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+    }
+  }
+
+  &:disabled {
+    background: #c7c7c7;
+    cursor: auto;
+
+    &:before {
+      transform: scaleY(0);
     }
   }
 }

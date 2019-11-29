@@ -17,6 +17,7 @@ export const routes = {
   register: '/auth/register',
   resetPassword: '/auth/password',
   product: '/products/:id',
+  productAdd: '/products/add',
 };
 
 export const PrivateRoute = observer(

@@ -175,44 +175,24 @@ export default {
       />
     </svg>
   ),
-  plus: ({
-    width = 38,
-    height = 38,
-    fill = '#349A89',
-    pathClassName,
-    ...props
-  }) => (
+  plus: ({ size = 38, fill = '#349A89', ...props }) => (
     <svg
-      width={width}
-      height={height}
-      viewBox="0 0 13 19"
-      fill={fill}
-      // xmlns="http://www.w3.org/2000/svg"
-      // viewBox="0 0 38 38"
+      width={size}
+      height={size}
+      viewBox="0 0 38 38"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <g id="Group 7">
-        <rect
-          className={pathClassName}
-          id="Rectangle 3"
-          x="17"
-          width="4"
-          height="38"
-          rx="2"
-          fill={fill}
-        />
-        <rect
-          className={pathClassName}
-          id="Rectangle 3.1"
-          y="21"
-          width="4"
-          height="38"
-          rx="2"
-          transform="rotate(-90 0 21)"
-          fill={fill}
-        />
-      </g>
+      <rect x="17" width="4" height="38" rx="2" fill={fill} />
+      <rect
+        y="21"
+        width="4"
+        height="38"
+        rx="2"
+        transform="rotate(-90 0 21)"
+        fill={fill}
+      />
     </svg>
   ),
   eye: ({

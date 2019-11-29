@@ -50,4 +50,16 @@ export const Products = {
   fetchProductById(id) {
     return axios.get(`/api/products/${id}`);
   },
+  uploadImage(formData) {
+    return axios.post(`/api/upload/images`, formData);
+  },
+  addProduct({ title, description, photos, location, price }) {
+    return axios.post(`/api/products`, {
+      title,
+      description,
+      photos,
+      location,
+      price,
+    });
+  },
 };

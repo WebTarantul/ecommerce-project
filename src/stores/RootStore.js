@@ -1,9 +1,10 @@
-import { types as t, types, applySnapshot } from 'mobx-state-tree';
+import { types as t, types } from 'mobx-state-tree';
 import Api from 'src/api';
 import { AuthStore } from './Auth/AuthStore';
 import { ViewerStore } from './Auth/ViewerStore';
-import { LatestProductsStore } from './Products/LatestProductsStore';
 import { EntitiesStore } from './EntitiesStore';
+import { LatestProductsStore } from './Products/LatestProductsStore';
+import { ProductAddStore } from './Products/ProductAddStore';
 
 export const RootStore = t
   .model('RootStore', {
@@ -11,6 +12,7 @@ export const RootStore = t
     viewer: types.optional(ViewerStore, {}),
     latestProducts: types.optional(LatestProductsStore, {}),
     entities: types.optional(EntitiesStore, {}),
+    productAdd: types.optional(ProductAddStore, {}),
   })
   .actions((self) => ({
     async bootstrap() {

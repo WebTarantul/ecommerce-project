@@ -1,0 +1,15 @@
+@import '../../../../assets/styles/component-base.scss';
+
+.button {
+  display: block;
+  margin-top: 24px;
+  margin-bottom: 1px;
+
+  @include button;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  text-transform: none;
+  width: 100%;
+  padding: 19px;
+}
