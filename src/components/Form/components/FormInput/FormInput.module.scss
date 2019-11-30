@@ -1,14 +1,15 @@
 .wrapper {
   margin-top: 14px;
-  label{
+
+  label {
     display: flex;
     flex-direction: column;
 
-    
+
   }
+
   .labelText {
     margin-bottom: 5px;
-    
     color: #303030;
     font-size: 12px;
     font-weight: 400;
@@ -20,37 +21,34 @@
     border-radius: 5px;
     border: 1px solid #dedee0;
     background-color: #f9fafb;
-    padding: 19px 46px 19px 13px ;
+    padding: 19px 46px 19px 13px;
     width: 100%;
     box-sizing: border-box;
-
     font-weight: 300;
     letter-spacing: 0.4px;
     font-size: 16px;
+
     &::placeholder {
       color: rgba(102, 102, 102, 0.47);
-   
     }
   }
-  .inputInner{
+
+  .inputInner {
     position: relative;
   }
-  .eyeButton{
+
+  .eyeButton {
     display: flex;
     align-items: center;
     height: 100%;
-
     padding-right: 18px;
     position: absolute;
     right: 0;
     top: 0;
-
     border: none;
     background: none;
     outline: none;
     cursor: pointer;
-
-
   }
 
 }

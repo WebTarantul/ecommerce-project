@@ -1,14 +1,13 @@
 .wrapper {
   margin-top: 14px;
-  label{
+
+  label {
     display: flex;
     flex-direction: column;
-
-    
   }
+
   .labelText {
     margin-bottom: 5px;
-    
     color: #303030;
     font-size: 12px;
     font-weight: 400;
@@ -17,8 +16,7 @@
   }
 
 
-  .inputInner{
+  .inputInner {
     position: relative;
   }
-  
-}/* your css code */
+}

@@ -9,9 +9,9 @@
   align-items: center;
 }
 
-.btn{
- @include button;
- padding: 7.5px 48.9px;
+.btn {
+  @include button;
+  padding: 7.5px 48.9px;
 }
 
 .favorite {
@@ -21,7 +21,8 @@
   align-items: center;
   justify-content: center;
   transition: all .3s;
-  &:hover{
+
+  &:hover {
     transform: scale(1.15);
   }
 }
@@ -61,12 +62,14 @@
   }
 }
 
-.darkText{
+.darkText {
   color: #000;
-  .login{
+
+  .login {
     color: $font-color;
   }
-  .favoriteOver{
+
+  .favoriteOver {
     fill: #2e2e2e;
   }
 }
