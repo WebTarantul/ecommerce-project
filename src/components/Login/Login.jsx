@@ -18,7 +18,7 @@ const schema = Yup.object().shape({
     .required('Password is required'),
 });
 
-const Login = (props) => {
+const Login = () => {
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -33,7 +33,7 @@ const Login = (props) => {
       [name]: evt.target.value,
     });
 
-    validation(values,setErrors,setIsValid);
+    validation(values, setErrors, setIsValid);
   };
 
   const blurHandler = (name) => {
@@ -62,7 +62,9 @@ const Login = (props) => {
             onBlur={() => blurHandler('email')}
             autoComplete="username"
           />
-          {errors.email && showError.email && <p className={s.error}>{errors.email}</p>}
+          {errors.email && showError.email && (
+            <p className={s.error}>{errors.email}</p>
+          )}
           <FormInput
             className={s.password}
             label="Password"
@@ -94,22 +96,22 @@ const Login = (props) => {
 export default Login;
 
 function validation(values, setErrors, setIsValid) {
-    schema.isValid(values).then((valid) => {
-      setIsValid(valid);
-    });
+  schema.isValid(values).then((valid) => {
+    setIsValid(valid);
+  });
 
-    schema
-      .validate(values, {
-        abortEarly: false,
-      })
-      .then((fieldsValidated) => {
-        setErrors({});
-      })
-      .catch((errors) => {
-        let allErrors = {};
-        errors.inner.map((error) => {
-          allErrors[error.path] = error.message;
-        });
-        setErrors(allErrors);
+  schema
+    .validate(values, {
+      abortEarly: false,
+    })
+    .then((fieldsValidated) => {
+      setErrors({});
+    })
+    .catch((errors) => {
+      let allErrors = {};
+      errors.inner.map((error) => {
+        allErrors[error.path] = error.message;
       });
+      setErrors(allErrors);
+    });
 }

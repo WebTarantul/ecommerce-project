@@ -4,10 +4,8 @@ import { useField, useFormik, useFormikContext } from 'formik';
 
 const FFormButton = ({ children, ...props }) => {
   const formikContext = useFormikContext();
-  const [isDisable, setIsDisable] = useState(true);
-  useEffect(() => {
-    setIsDisable(!(formikContext.dirty && formikContext.isValid));
-  }, [formikContext]);
+  const isDisable = !(formikContext.dirty && formikContext.isValid);
+
   return (
     <button
       type="submit"
