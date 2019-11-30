@@ -1,1 +1,8 @@
-/* your css code */
+@import '../../assets/styles/component-base.scss';
+
+.wrapper{
+  @include container;
+  svg{
+    max-width: 100%;
+  }
+}

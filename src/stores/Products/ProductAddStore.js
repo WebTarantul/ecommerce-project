@@ -37,5 +37,6 @@ function addProduct({ title, description, photos, location, price }) {
       price,
     });
     root.entities.products.add(res.data.id, res.data);
+    return res;
   };
 }

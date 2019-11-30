@@ -20,11 +20,11 @@ export const AuthStore = types
   }));
 
 function login({ email, password }) {
-  return flow(function* loginFlow(flowStore) {
+  return flow(function* loginFlow(flowStore, store, root) {
     const res = yield Api.Auth.login({ email, password });
     Api.Auth.setToken(res.data.token);
-    getRoot(flowStore).viewer.setViewer(res.data.user);
-    getParent(flowStore).setIsLoggedIn(true);
+    root.viewer.setViewer(res.data.user);
+    store.setIsLoggedIn(true);
   });
 }
 
@@ -45,6 +45,7 @@ function register({ fullName, email, password }) {
       flowStore.success();
     } catch (error) {
       console.error(error.status);
+      flowStore.isError = true;
     }
   });
 }

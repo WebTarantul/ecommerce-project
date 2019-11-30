@@ -1,9 +1,12 @@
 import {
-  types,
   onSnapshot,
   applySnapshot,
   getParent,
   getRoot,
+  getIdentifier,
+  isStateTreeNode,
+  resolveIdentifier,
+  types,
 } from 'mobx-state-tree';
 
 export function asyncModel(thunk, auto = true) {
@@ -86,6 +89,11 @@ export function createCollection(ofModel, asyncModels = {}) {
       collection: types.map(ofModel),
       ...asyncModels,
     })
+    .views((self) => ({
+      get(key) {
+        return self.collection.get(String(key));
+      },
+    }))
     .actions((self) => ({
       add(key, value) {
         self.collection.set(String(key), value);
@@ -108,4 +116,18 @@ export function readFileAsync(file) {
 
 export function removeItemWithIndex(arr, idx) {
   return [...arr.slice(0, idx), ...arr.slice(idx + 1)];
+}
+
+export function safeReference(T) {
+  return types.reference(T, {
+    get(identifier, parent) {
+      if (isStateTreeNode(identifier)) {
+        identifier = getIdentifier(identifier);
+      }
+      return resolveIdentifier(T, parent, identifier);
+    },
+    set(value) {
+      return value;
+    },
+  });
 }

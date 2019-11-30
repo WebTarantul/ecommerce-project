@@ -12,14 +12,37 @@ const ProductView = () => {
     entities: { products },
   } = useStore();
 
-  const product = products.collection.get(id);
+  const product = products.get(id);
   useEffect(() => {
-    if (!product) {
+    if (!product || !product.owner) {
       products.getProduct.run(id);
     }
   }, []);
 
-  return product && !products.getProduct.isLoading ? (
+  if (products.getProduct.isLoading) {
+    return (
+      <div className={s.productView}>
+        <div className={s.inner}>
+          <div className={s.left}>
+            <Sceleton count={10} />
+          </div>
+          <div className={s.right}>
+            <Sceleton />
+            {/* <button>Chat with seller</button> */}
+          </div>
+        </div>
+      </div>
+    );
+  } else if (!product) {
+    return (
+      <div className={s.productView}>
+        <div className={s.inner}>
+          <NotFound text="Product is not found" />
+        </div>
+      </div>
+    );
+  }
+  return (
     <>
       <div className={s.productView}>
         <div className={s.inner}>
@@ -28,24 +51,12 @@ const ProductView = () => {
             <p>{product.title}</p>
           </div>
           <div className={s.right}>
+            <h5>{product.owner && product.owner.fullName}</h5>
             <button>Chat with seller</button>
           </div>
         </div>
       </div>
     </>
-  ) : (
-    <div className={s.productView}>
-      <div className={s.inner}>
-        <div className={s.left}>
-          <Sceleton count={10} />
-        </div>
-        <div className={s.right}>
-          <Sceleton />
-          {/* <button>Chat with seller</button> */}
-        </div>
-      </div>
-    </div>
-    // <Spinner />
   );
 };
 

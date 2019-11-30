@@ -1,12 +1,12 @@
-import { types as t } from 'mobx-state-tree';
+import { types } from 'mobx-state-tree';
 
-export const UserModel = t.model('UserModel', {
-  id: t.number,
-  fullName: t.string,
-  location: t.maybeNull(t.string),
-  avatar: t.maybeNull(t.string),
-  phone: t.maybeNull(t.string),
-  createdAt: t.maybeNull(t.string),
-  updatedAt: t.maybeNull(t.string),
-  email: t.string,
+export const UserModel = types.model('UserModel', {
+  id: types.identifierNumber,
+  fullName: types.string,
+  location: types.maybeNull(types.string),
+  avatar: types.maybeNull(types.string),
+  phone: types.maybeNull(types.string),
+  createdAt: types.maybeNull(types.string),
+  updatedAt: types.maybeNull(types.string),
+  email: types.maybe(types.string),
 });
