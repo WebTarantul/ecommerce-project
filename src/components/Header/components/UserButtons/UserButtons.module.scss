@@ -1,0 +1,75 @@
+@import '../../../../assets/styles/component-base.scss';
+
+.visuallyHidden {
+  @include visually-hidden;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  @include button;
+  padding: 7.5px 48.9px;
+}
+
+.favorite {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .3s;
+
+  &:hover {
+    transform: scale(1.15);
+  }
+}
+
+
+.login {
+  display: inline-block;
+  padding: 5px 0;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  position: relative;
+  margin-right: 39px;
+  margin-left: 33px;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 1px;
+    background: #349a89;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: .25s ease-out;
+  }
+
+  &:hover {
+    text-decoration: none;
+
+    &:before {
+      width: 100%;
+    }
+  }
+}
+
+.darkText {
+  color: #000;
+
+  .login {
+    color: $font-color;
+  }
+
+  .favoriteOver {
+    fill: #2e2e2e;
+  }
+}

@@ -8,7 +8,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['js'],
+        extensions: ['js','jsx'],
       },
       alias: {
         map: [['src', './src']],

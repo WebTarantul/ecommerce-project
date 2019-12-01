@@ -1,0 +1,10 @@
+@import './assets/styles/normalize.scss';
+@import './assets/styles/fonts.scss';
+@import './assets/styles/component-base.scss';
+
+body {
+  background-color: #f8f8f8;
+  font-family: $font;
+  font-size: $font-size;
+  color: $font-color;
+}
