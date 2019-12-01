@@ -8,14 +8,19 @@ import UserBlock from 'src/components/UserBlock/UserBlock';
 import { useStore } from 'src/stores/createStore';
 import { observer } from 'mobx-react';
 import Avatar from 'src/components/Avatar/Avatar';
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import s from './UserButtons.module.scss';
 
 const UserButtons = ({ headerIsLight }) => {
-  const darkModeClass = headerIsLight ? 'darkText' : '';
   const store = useStore();
   const [hoverUser, setHoverUser] = useState(false);
+
   const toggleHover = () => setHoverUser(!hoverUser);
+  const cx = classNames.bind(s);
+  const darkModeClass = cx({
+    darkText: headerIsLight,
+  });
   return (
     <div className={`${s.wrapper} ${s[darkModeClass]}`}>
       <Link className={`${s.btn} ${s.item}`} to="">

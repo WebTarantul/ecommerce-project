@@ -1,51 +1,33 @@
-import React, {useState, forwardRef} from 'react';
+import React, { forwardRef } from 'react';
+import FormPasswordInput from '../FormPasswordInput/FormPasswordInput';
+import FormTextInput from '../FormTextInput/FormTextInput';
 import s from './FormInput.module.scss';
-import Icon from 'src/components/Icon/Icon';
 
-const FormInput =  ({
-  children,
-  label,
-  name,
-  ...props
-},ref) => {
-  const [isClosePassword, setIsClosePassword] = useState(true);
-  const passwordType = isClosePassword ? 'password' : 'text';
-  const toggleVisiblePassword = () => {
-    setIsClosePassword(!isClosePassword);
-  };
+const FormInput = ({ children, label, name, ...props }, ref) => {
+  let Input;
 
+  switch (props.type) {
+    case 'text':
+      Input = FormTextInput;
+      break;
+    case 'password':
+      Input = FormPasswordInput;
+      break;
+    default:
+      Input = FormTextInput;
+      break;
+  }
   return (
     <div className={s.wrapper}>
       <label htmlFor={name}>
         <span className={s.labelText}>{label}</span>
         <span className={s.inputInner}>
-          {props.type === 'password' ? (
-            <>
-              <input name={name} {...props} type={passwordType} />
-              <button
-                type="button"
-                className={s.eyeButton}
-                onClick={toggleVisiblePassword}
-              >
-                {isClosePassword ? (
-                  <Icon className={s.icon} name="eye" />
-
-                ):(
-                  <Icon className={s.icon} fillBody="#000" fillCenter="#fff" name="eye" />
-
-                )}
-              </button>
-            </>
-          ) : (
-            <input type="text" name={name} {...props} ref={ref} />
-          )}
-
+          <Input {...{ ref, name, ...props }} />
           {children}
         </span>
       </label>
     </div>
   );
 };
-
 
 export default forwardRef(FormInput);

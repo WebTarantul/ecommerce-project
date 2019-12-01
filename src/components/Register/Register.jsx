@@ -1,18 +1,30 @@
-import React, { useRef, useEffect } from 'react';
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { Link, useHistory } from 'react-router-dom';
-import { useStore } from 'src/stores/createStore';
-import { routes } from 'src/scenes/routes';
 import { observer } from 'mobx-react';
+import React, { useEffect, useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { routes } from 'src/scenes/routes';
+import { useStore } from 'src/stores/createStore';
+import * as Yup from 'yup';
 import CenteringOfForm from '../CenteringOfForm/CenteringOfForm';
-import FTextInput from '../FForm/components/FTextInput/FTextInput';
-import FForm from '../FForm/FForm';
-import FormButton from '../Form/components/FormButton/FormButton';
-import FormFooter from '../FormFooter/FormFooter';
 import FErrorMessage from '../FForm/components/FErrorMessage/FErrorMessage';
-import Spinner from '../Spinner';
-import s from './Register.module.scss';
+import FFormButton from '../FForm/components/FFormButton/FFormButton';
+import FInput from '../FForm/components/FInput/FInput';
+import FForm from '../FForm/FForm';
+import FormFooter from '../FormFooter/FormFooter';
+
+const validationSchema = Yup.object({
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Email is required'),
+  fullName: Yup.string(),
+  password: Yup.string()
+    .min(6, 'Password has to be longer than 6 characters')
+    .required('Password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password')], 'Passwords are not the same!')
+    .required('Password confirmation is required!'),
+});
 
 const Register = () => {
   const {
@@ -28,18 +40,7 @@ const Register = () => {
       confirmPassword: '',
     },
 
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email('Invalid email address')
-        .required('Email is required'),
-      fullName: Yup.string(),
-      password: Yup.string()
-        .min(6, 'Password has to be longer than 6 characters')
-        .required('Password is required'),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password')], 'Passwords are not the same!')
-        .required('Password confirmation is required!'),
-    }),
+    validationSchema,
     onSubmit: async (values, { resetForm }) => {
       await register.run(values);
       resetForm();
@@ -57,7 +58,7 @@ const Register = () => {
       <CenteringOfForm>
         <Formik {...formikProps}>
           <FForm title="Register">
-            <FTextInput
+            <FInput
               name="email"
               type="email"
               label="Email"
@@ -65,7 +66,7 @@ const Register = () => {
               ref={refEmail}
             />
             <FErrorMessage name="email" />
-            <FTextInput
+            <FInput
               name="fullName"
               type="text"
               label="Full name"
@@ -73,25 +74,21 @@ const Register = () => {
               autoComplete="username"
             />
             <FErrorMessage name="fullName" />
-            <FTextInput
+            <FInput
               name="password"
               type="password"
               label="Password"
               autoComplete="new-password"
             />
             <FErrorMessage name="password" />
-            <FTextInput
+            <FInput
               name="confirmPassword"
               type="password"
               label="Password again"
               autoComplete="new-password"
             />
             <FErrorMessage name="confirmPassword" />
-            {register.isLoading ? (
-              <Spinner className={s.spinner} />
-            ) : (
-              <FormButton>Register</FormButton>
-            )}
+            <FFormButton>Register</FFormButton>
           </FForm>
         </Formik>
         <FormFooter>

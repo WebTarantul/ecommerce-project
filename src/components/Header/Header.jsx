@@ -1,3 +1,5 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import React from 'react';
 import { routes } from 'src/scenes/routes';
 import { Link } from 'react-router-dom';
@@ -13,12 +15,11 @@ const Header = ({ isLight, children }) => {
       <div className={s.container}>
         <div className={s.logoBlock}>
           <Link className={s.logoLink} to={routes.home}>
-            {isLight && (
-              <Icon name="logo" classNameText={s.logoText} isDark />
-            )}
-            {!isLight && (
-              <Icon name="logo" classNameText={s.logoText} />
-            )}
+            <Icon
+              name="logo"
+              classNameText={s.logoText}
+              isDark={isLight}
+            />
           </Link>
         </div>
         <div className={s.userBlock}>
