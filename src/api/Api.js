@@ -62,4 +62,27 @@ export const Products = {
       price,
     });
   },
+  fetchUserProducts(userId) {
+    return axios.get(`/api/users/${userId}/products`);
+  },
+  fetchSavedProducts() {
+    return axios.get(`/api/products/saved`);
+  },
+  postSavedProducts(productsIdsArray) {
+    return axios.post(`/api/products/saved`, {
+      ids: productsIdsArray,
+    });
+  },
+  postSavedProduct(productId) {
+    return axios.post(`/api/products/${productId}/saved`);
+  },
+  deleteSavedProduct(productId) {
+    return axios.delete(`/api/products/${productId}/saved`);
+  },
+};
+
+export const Users = {
+  fetchUserById(userId) {
+    return axios.get(`/api/users/${userId}`);
+  },
 };

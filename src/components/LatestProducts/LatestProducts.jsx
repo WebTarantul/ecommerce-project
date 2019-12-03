@@ -7,20 +7,22 @@ import s from './LatestProducts.module.scss';
 import ErrorIndicator from '../ErrorIndicator';
 
 const LatestProducts = () => {
-  const store = useStore();
-
+  const latestProducts = useStore((store) => store.latestProducts);
   useEffect(() => {
-    store.latestProducts.fetchLatest.run();
+    if (latestProducts.items.length === 0) {
+      latestProducts.fetchLatest.run();
+    }
   }, []);
-  if (store.latestProducts.fetchLatest.isError) {
+  if (latestProducts.fetchLatest.isError) {
     return <ErrorIndicator />;
   }
   return (
     <div className={s.LatestProducts}>
-      {store.latestProducts.fetchLatest.isLoading && <Spinner />}
+      {!latestProducts.items.length &&
+        latestProducts.fetchLatest.isLoading && <Spinner />}
       <ProductList
         className={s.productList}
-        productList={store.latestProducts.items}
+        productList={latestProducts.items}
       />
     </div>
   );

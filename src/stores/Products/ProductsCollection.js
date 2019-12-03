@@ -1,8 +1,8 @@
 import Api from 'src/api';
-import { createCollection, asyncModel } from '../utils';
-import { ProductModel } from './ProductModel';
 import { useStore } from '../createStore';
-import { useUsersCollection } from '../Users/UserCollection';
+import { Product } from '../schemas';
+import { asyncModel, createCollection } from '../utils';
+import { ProductModel } from './ProductModel';
 
 export function useProductsCollection() {
   const store = useStore();
@@ -15,12 +15,15 @@ export const ProductsCollection = createCollection(ProductModel, {
 });
 
 function getProduct(id) {
-  return async function getProductFlow(flowStore, store, root) {
+  return async function getProductFlow(flowStore) {
     const res = await Api.Products.fetchProductById(id);
-    root.entities.users.add(res.data.owner.id, res.data.owner);
-    store.add(res.data.id, {
-      ...res.data,
-      owner: +res.data.owner.id,
-    });
+    // const { entities } = normalize(res.data, Product);
+    flowStore.merge(res.data, Product);
+
+    // root.entities.users.add(res.data.owner.id, res.data.owner);
+    // store.add(res.data.id, {
+    //   ...res.data,
+    //   owner: +res.data.owner.id,
+    // });
   };
 }

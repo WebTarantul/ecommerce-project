@@ -1,0 +1,9 @@
+@import '../../assets/styles/component-base.scss';
+
+.container {
+  @include list-container;
+  background: #ffffff;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 77px;
+}

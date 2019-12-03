@@ -5,6 +5,7 @@ import { ViewerStore } from './Auth/ViewerStore';
 import { EntitiesStore } from './EntitiesStore';
 import { LatestProductsStore } from './Products/LatestProductsStore';
 import { ProductAddStore } from './Products/ProductAddStore';
+import { SavedProductsStore } from './Products/SavedProductsStore';
 
 export const RootStore = t
   .model('RootStore', {
@@ -13,6 +14,7 @@ export const RootStore = t
     latestProducts: types.optional(LatestProductsStore, {}),
     entities: types.optional(EntitiesStore, {}),
     productAdd: types.optional(ProductAddStore, {}),
+    savedProducts: types.optional(SavedProductsStore, {}),
   })
   .actions((self) => ({
     async bootstrap() {

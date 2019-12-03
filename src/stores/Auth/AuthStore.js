@@ -44,7 +44,7 @@ function register({ fullName, email, password }) {
       getParent(flowStore).setIsLoggedIn(true);
       flowStore.success();
     } catch (error) {
-      console.error(error.status);
+      // console.error(error.status);
       flowStore.isError = true;
     }
   });

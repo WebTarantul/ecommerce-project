@@ -1,8 +1,13 @@
 @import '../../assets/styles/component-base.scss';
 
-.wrapper{
+.wrapper {
   @include container;
-  svg{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  svg {
     max-width: 100%;
   }
 }

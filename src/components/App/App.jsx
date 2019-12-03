@@ -6,11 +6,9 @@ import s from './App.module.scss';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 const rootStore = createStore();
+rootStore.bootstrap();
 
 const App = () => {
-  useEffect(() => {
-    rootStore.bootstrap();
-  }, []);
   return (
     <div className={s.wrapper}>
       <Provider value={rootStore}>

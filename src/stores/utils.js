@@ -8,6 +8,7 @@ import {
   resolveIdentifier,
   types,
 } from 'mobx-state-tree';
+import { normalize } from 'normalizr';
 
 export function asyncModel(thunk, auto = true) {
   const AsyncModel = types
@@ -38,7 +39,7 @@ export function asyncModel(thunk, auto = true) {
       error(error) {
         self.isLoading = false;
         self.isError = true;
-        console.error(error.info || error);
+        console.error(error);
       },
       async _auto(promise) {
         try {
@@ -48,6 +49,11 @@ export function asyncModel(thunk, auto = true) {
         } catch (error) {
           self.error(error);
         }
+      },
+      merge(data, schema) {
+        const { result, entities } = normalize(data, schema);
+        getRoot(self).entities.merge(entities);
+        return result;
       },
     }));
 
@@ -61,10 +67,15 @@ export function createPersist(store) {
       '___persist',
       JSON.stringify({
         viewer: {
+          userModel: snapshot.viewer && snapshot.viewer.userModel,
           user: snapshot.viewer && snapshot.viewer.user,
         },
         auth: {
           isLoggedIn: snapshot.auth && snapshot.auth.isLoggedIn,
+        },
+        savedProducts: {
+          items:
+            snapshot.savedProducts && snapshot.savedProducts.items,
         },
       }),
     );
@@ -105,7 +116,7 @@ export function createCollection(ofModel, asyncModels = {}) {
 
 export function readFileAsync(file) {
   return new Promise((resolve, reject) => {
-    let reader = new FileReader();
+    const reader = new FileReader();
 
     reader.readAsDataURL(file);
     reader.onload = () => {

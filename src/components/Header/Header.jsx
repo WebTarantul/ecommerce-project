@@ -1,15 +1,15 @@
 import React from 'react';
 import { routes } from 'src/scenes/routes';
+import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import Icon from '../Icon/Icon';
 import s from './Header.module.scss';
 import UserButtons from './components/UserButtons/UserButtons';
 
 const Header = ({ isLight, children }) => {
-  const darkModeClass = isLight ? s.lightMode : '';
-
+  const cx = classNames.bind(s);
   return (
-    <header className={`${s.wrapper} ${darkModeClass}`}>
+    <header className={cx({ wrapper: true, lightMode: isLight })}>
       <div className={s.container}>
         <div className={s.logoBlock}>
           <Link className={s.logoLink} to={routes.home}>

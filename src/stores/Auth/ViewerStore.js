@@ -12,7 +12,9 @@ export const ViewerStore = types
   .actions((self) => ({
     setViewer(viewer) {
       self.userModel = viewer;
-      self.user = +viewer.id;
+      if (viewer) {
+        self.user = +viewer.id;
+      }
     },
     removeViewer() {
       self.user = undefined;

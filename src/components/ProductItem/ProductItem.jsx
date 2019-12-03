@@ -1,6 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
+import { useStore } from 'src/stores/createStore';
 import { Link, generatePath } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { routes } from 'src/scenes/routes';
@@ -8,15 +9,22 @@ import Icon from '../Icon/Icon';
 import s from './ProductItem.module.scss';
 
 const ProductItem = ({ product }) => {
-  const { title, price, photos, id } = product;
+  const store = useStore();
+  const { title, price, photos, id, saved } = product;
   return (
     <>
       <li className={s.item}>
-        <button type="button" className={s.favorite}>
+        <button
+          type="button"
+          className={s.favorite}
+          onClick={() => {
+            store.savedProducts.toggleSaved(id);
+          }}
+        >
           <Icon
-            // classNameOut={s.outHeart}
             name="favorite"
-            fill="#b7b7b7"
+            fill={saved ? 'none' : '#b7b7b7'}
+            fillInner={saved ? '#349a89' : 'none'}
           />
         </button>
         <Link
