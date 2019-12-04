@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 import cn from 'classnames/bind';
-import { getColorFromInitials } from 'src/stores/utils';
+import { getColorFromInitials } from 'src/utils';
 import { useStore } from 'src/stores/createStore';
 import s from './Avatar.module.scss';
 
