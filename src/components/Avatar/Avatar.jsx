@@ -1,36 +1,31 @@
 import { observer } from 'mobx-react';
 import React from 'react';
+import cn from 'classnames/bind';
 import { useStore } from 'src/stores/createStore';
 import s from './Avatar.module.scss';
 
-const r = Math.floor(Math.random() * 256);
-const g = Math.floor(Math.random() * 256);
-const b = Math.floor(Math.random() * 256);
-const rgb = `rgb(${r},${g},${b})`;
+const cx = cn.bind(s);
 
 const Avatar = ({ children, className, ...props }) => {
-  const { viewer } = useStore();
+  const user = useStore((state) => state.viewer.user);
+  const initials = user.getInitials();
 
-  const initials = viewer.user
-    ? viewer.user.fullName
-        .split(' ')
-        .map((n) => n[0])
-        .join('')
-    : null;
-
-  return viewer.user ? (
-    <div className={`${s.wrapper} ${className}`} {...props}>
+  return user ? (
+    <div className={cx('wrapper', className)} {...props}>
       <div className={s.inner}>
-        {viewer.user.avatar ? (
+        {user.avatar ? (
           <span
             className={s.avatar}
             style={{
-              backgroundImage: `url(${viewer.user.avatar})`,
+              backgroundImage: `url(${user.avatar})`,
               color: 'red',
             }}
           />
         ) : (
-          <div className={s.name} style={{ backgroundColor: rgb }}>
+          <div
+            className={s.name}
+            style={{ backgroundColor: user.getColor() }}
+          >
             <span>{initials}</span>
           </div>
         )}

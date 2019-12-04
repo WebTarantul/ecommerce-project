@@ -27,9 +27,7 @@ const validationSchema = Yup.object({
 });
 
 const Register = () => {
-  const {
-    auth: { register },
-  } = useStore();
+  const register = useStore((store) => store.auth.register);
   const history = useHistory();
 
   const formikProps = {

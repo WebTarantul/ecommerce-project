@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-for */
 import { useField } from 'formik';
 import React, { forwardRef } from 'react';
 import FPasswordInput from '../FPasswordInput/FPasswordInput';

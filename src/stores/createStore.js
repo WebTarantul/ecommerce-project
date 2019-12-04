@@ -3,6 +3,14 @@ import { RootStore } from './RootStore';
 
 export function createStore() {
   const root = RootStore.create();
+  if (process.env.NODE_ENV === 'development') {
+    /* eslint-disable global-require */
+    require('mst-middlewares').connectReduxDevtools(
+      require('remotedev'),
+      root,
+    );
+    /* eslint-enable global-require */
+  }
   return root;
 }
 

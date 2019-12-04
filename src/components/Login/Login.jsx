@@ -122,9 +122,10 @@ function validation(values, setErrors, setIsValid) {
       setErrors({});
     })
     .catch((errors) => {
-      let allErrors = {};
+      const allErrors = {};
       errors.inner.map((error) => {
         allErrors[error.path] = error.message;
+        return null;
       });
       setErrors(allErrors);
     });
