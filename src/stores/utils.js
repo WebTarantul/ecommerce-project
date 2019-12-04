@@ -63,6 +63,10 @@ export function asyncModel(thunk, auto = true) {
 export function createPersist(store) {
   onSnapshot(store, (snapshot) => {
     // eslint-disable-next-line no-undef
+    const savedItems = store.savedProducts.items
+      .map((i) => i && i.id)
+      .filter((i) => !!i);
+
     localStorage.setItem(
       '___persist',
       JSON.stringify({
@@ -74,8 +78,7 @@ export function createPersist(store) {
           isLoggedIn: snapshot.auth && snapshot.auth.isLoggedIn,
         },
         savedProducts: {
-          items:
-            snapshot.savedProducts && snapshot.savedProducts.items,
+          items: savedItems,
         },
       }),
     );

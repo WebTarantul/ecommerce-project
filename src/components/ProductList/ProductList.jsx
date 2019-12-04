@@ -10,7 +10,10 @@ const ProductList = ({ productList, ...props }) => (
     <div className={s.productList}>
       <ul className={s.list}>
         {productList.map((item) => {
-          return <ProductItem key={item.id} product={item} />;
+          if (item) {
+            return <ProductItem key={item.id} product={item} />;
+          }
+          return null;
         })}
       </ul>
     </div>

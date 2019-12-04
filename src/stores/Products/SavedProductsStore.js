@@ -13,10 +13,18 @@ export const SavedProductsStore = types
     postSavedProduct: asyncModel(postSavedProduct, false),
     deleteSavedProduct: asyncModel(deleteSavedProduct),
   })
+  .views((self) => ({
+    get savedQuantity() {
+      return self.items.length;
+    },
+  }))
   .actions((self) => ({
     add(items) {
       if (Array.isArray(items)) {
-        self.items = [...new Set([...self.items, ...items])];
+        const filtered = items.filter((i) => {
+          return self.items.findIndex((item) => item.id === i) < 0;
+        });
+        self.items = [...self.items, ...filtered];
       } else {
         self.items.push(items);
       }
@@ -48,11 +56,9 @@ export const SavedProductsStore = types
 
 function fetchSavedProducts() {
   return async function fetchSavedProductsFlow(flowStore, store) {
-    flowStore.start();
     const res = await Api.Products.fetchSavedProducts();
     const result = flowStore.merge(res.data, Products);
     store.add(result);
-    flowStore.success();
   };
 }
 

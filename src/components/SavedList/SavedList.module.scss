@@ -1,0 +1,28 @@
+@import '../../assets/styles/component-base.scss';
+
+.wrapper {
+  width: 100%;
+  max-width: 904px;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  padding-bottom: 16px;
+
+  background: #ffffff;
+  box-shadow: 0 5px 15px rgba(121, 121, 121, 0.05);
+  border: 1px solid #e4e4e4;
+}
+
+.title {
+  @include list-container;
+  margin-top: 23px;
+  margin-bottom: 19px;
+  color: #000000;
+  font-family: Rubik;
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.quantity {
+  color: rgba(0, 0, 0, 0.37);
+}

@@ -27,7 +27,7 @@ const Profile = () => {
         {user && (
           <ProfileHeader
             user={user}
-            productsCount={user.ownProducts.getItemsQuantity()}
+            productsCount={user.ownProducts.itemsQuantity}
           />
         )}
 

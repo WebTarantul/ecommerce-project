@@ -10,7 +10,7 @@ export const OwnProductsStore = types
     fetchItems: asyncModel(fetchItems),
   })
   .views((self) => ({
-    getItemsQuantity() {
+    get itemsQuantity() {
       return self.items.length;
     },
   }))
