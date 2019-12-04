@@ -12,35 +12,10 @@ export const UserModel = t
     email: t.string,
   })
   .views((self) => ({
-    getInitials() {
+    get initials() {
       return self.fullName
         .split(' ')
         .map((n) => n[0])
         .join('');
-    },
-    getColor() {
-      const colors = [
-        'red',
-        'black',
-        'pink',
-        'yellow',
-        'red',
-        'black',
-        'pink',
-        'yellow',
-        'red',
-        'black',
-        'pink',
-        'yellow',
-        'red',
-        'black',
-        'pink',
-        'yellow',
-      ];
-      const initials = self.getInitials();
-      const code = initials.charCodeAt(0) + initials.charCodeAt(1);
-      const index = code % colors.length;
-
-      return colors[index];
     },
   }));

@@ -4,8 +4,8 @@ import { asyncModel } from '../utils';
 
 export const AuthStore = types
   .model('AuthStore', {
-    login: asyncModel(loginFlow),
-    register: asyncModel(registerFlow),
+    login: asyncModel(login),
+    register: asyncModel(register),
   })
   .actions((self) => ({
     logout() {
@@ -14,17 +14,17 @@ export const AuthStore = types
     },
   }));
 
-function loginFlow({ email, password }) {
-  return async function login(store) {
+function login({ email, password }) {
+  return async function loginFlow(flowStore) {
     const res = await Api.Auth.login({ email, password });
     Api.Auth.setToken(res.data.token);
 
-    getRoot(store).viewer.setViewer(res.data.user);
+    getRoot(flowStore).viewer.setViewer(res.data.user);
   };
 }
 
-function registerFlow({ fullName, email, password }) {
-  return async function register(store) {
+function register({ fullName, email, password }) {
+  return async function registerFlow(flowStore) {
     const {
       data: { token, user },
     } = await Api.Auth.register({
@@ -35,6 +35,6 @@ function registerFlow({ fullName, email, password }) {
 
     Api.Auth.setToken(token);
 
-    getRoot(store).viewer.setViewer(user);
+    getRoot(flowStore).viewer.setViewer(user);
   };
 }

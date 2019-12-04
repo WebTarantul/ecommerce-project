@@ -25,7 +25,7 @@ export function asyncModel(thunk, auto = true) {
       error(error) {
         self.isLoading = false;
         self.isError = true;
-        console.error(error.info || error);
+        console.error(error);
       },
       async _auto(promise) {
         try {
@@ -39,4 +39,30 @@ export function asyncModel(thunk, auto = true) {
     }));
 
   return types.optional(AsyncModel, {});
+}
+
+const colorsArr = [
+  'red',
+  'black',
+  'pink',
+  'yellow',
+  'red',
+  'black',
+  'pink',
+  'yellow',
+  'red',
+  'black',
+  'pink',
+  'yellow',
+  'red',
+  'black',
+  'pink',
+  'yellow',
+];
+
+export function getColorFromInitials(initials) {
+  const code = initials.charCodeAt(0) + initials.charCodeAt(1);
+  const index = code % colorsArr.length;
+
+  return colorsArr[index];
 }
