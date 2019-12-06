@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import { useField } from 'formik';
-import Icon from 'src/components/Icon/Icon';
+import React, { forwardRef } from 'react';
 import s from './FTextInput.module.scss';
 
-const FTextInput = ({ children, ...props }) => {
-
-  return (
-    <span className={s.inputInner}>
-      <input type="text" {...props} />
-      {children}
-    </span>
-  );
-};
+const FTextInput = forwardRef(
+  ({ children, ...props }, ref = null) => {
+    return (
+      <span className={s.inputInner}>
+        <input type="text" ref={ref} {...props} />
+        {children}
+      </span>
+    );
+  },
+);
 
 export default FTextInput;

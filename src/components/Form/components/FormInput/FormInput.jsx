@@ -1,15 +1,9 @@
-import React from 'react';
-import s from './FormInput.module.scss';
+import React, { forwardRef } from 'react';
 import FormPasswordInput from '../FormPasswordInput/FormPasswordInput';
 import FormTextInput from '../FormTextInput/FormTextInput';
+import s from './FormInput.module.scss';
 
-const FormInput = ({
-  children,
-  label,
-  labelClassName = '',
-  name,
-  ...props
-}) => {
+const FormInput = ({ children, label, name, ...props }, ref) => {
   let Input;
 
   switch (props.type) {
@@ -28,7 +22,7 @@ const FormInput = ({
       <label htmlFor={name}>
         <span className={s.labelText}>{label}</span>
         <span className={s.inputInner}>
-          <Input {...{ name, ...props }} />
+          <Input {...{ ref, name, ...props }} />
           {children}
         </span>
       </label>
@@ -36,4 +30,4 @@ const FormInput = ({
   );
 };
 
-export default FormInput;
+export default forwardRef(FormInput);

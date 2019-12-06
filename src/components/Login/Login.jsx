@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import { observer } from 'mobx-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { routes } from 'src/scenes/routes';
+import { useStore } from 'src/stores/createStore';
 import * as Yup from 'yup';
 import CenteringOfForm from '../CenteringOfForm/CenteringOfForm';
-import Form from '../Form/Form';
 import FormButton from '../Form/components/FormButton/FormButton';
 import FormInput from '../Form/components/FormInput/FormInput';
-import { Link } from 'react-router-dom';
-import s from './Login.module.scss';
+import Form from '../Form/Form';
 import FormFooter from '../FormFooter/FormFooter';
-import { routes } from 'src/scenes/routes';
+import s from './Login.module.scss';
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -19,6 +21,8 @@ const schema = Yup.object().shape({
 });
 
 const Login = () => {
+  const store = useStore();
+  const history = useHistory();
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -43,15 +47,24 @@ const Login = () => {
     });
   };
 
-  const submitHandler = (evt) => {
+  const submitHandler = async (evt, { email, password }) => {
     evt.preventDefault();
-    console.log('submit');
+    await store.auth.login.run({ email, password });
+    history.push(routes.home);
   };
+
+  const refEmail = useRef(null);
+  useEffect(() => {
+    refEmail.current.focus();
+  }, []);
 
   return (
     <div className={s.wrapper}>
       <CenteringOfForm>
-        <Form title="Login" onSubmit={submitHandler}>
+        <Form
+          title="Login"
+          onSubmit={(evt) => submitHandler(evt, values)}
+        >
           <FormInput
             label="Email"
             placeholder="Example@gmail.com"
@@ -61,6 +74,7 @@ const Login = () => {
             onChange={(evt) => changeHandler('email', evt)}
             onBlur={() => blurHandler('email')}
             autoComplete="username"
+            ref={refEmail}
           />
           {errors.email && showError.email && (
             <p className={s.error}>{errors.email}</p>
@@ -93,7 +107,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default observer(Login);
 
 function validation(values, setErrors, setIsValid) {
   schema.isValid(values).then((valid) => {
@@ -108,9 +122,10 @@ function validation(values, setErrors, setIsValid) {
       setErrors({});
     })
     .catch((errors) => {
-      let allErrors = {};
+      const allErrors = {};
       errors.inner.map((error) => {
         allErrors[error.path] = error.message;
+        return null;
       });
       setErrors(allErrors);
     });

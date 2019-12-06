@@ -1,16 +1,14 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Formik } from 'formik';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { observer } from 'mobx-react';
+import React, { useEffect, useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { routes } from 'src/scenes/routes';
+import { useStore } from 'src/stores/createStore';
 import * as Yup from 'yup';
 import CenteringOfForm from '../CenteringOfForm/CenteringOfForm';
 import FErrorMessage from '../FForm/components/FErrorMessage/FErrorMessage';
 import FFormButton from '../FForm/components/FFormButton/FFormButton';
-import FPasswordInput from '../FForm/components/FPasswordInput/FPasswordInput';
-import FTextInput from '../FForm/components/FTextInput/FTextInput';
 import FInput from '../FForm/components/FInput/FInput';
 import FForm from '../FForm/FForm';
 import FormFooter from '../FormFooter/FormFooter';
@@ -29,6 +27,9 @@ const validationSchema = Yup.object({
 });
 
 const Register = () => {
+  const register = useStore((store) => store.auth.register);
+  const history = useHistory();
+
   const formikProps = {
     initialValues: {
       email: '',
@@ -38,10 +39,17 @@ const Register = () => {
     },
 
     validationSchema,
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
+      await register.run(values);
       resetForm();
+      history.push(routes.home);
     },
   };
+
+  const refEmail = useRef(null);
+  useEffect(() => {
+    refEmail.current.focus();
+  }, []);
 
   return (
     <>
@@ -53,6 +61,7 @@ const Register = () => {
               type="email"
               label="Email"
               placeholder="Example@gmail.com"
+              ref={refEmail}
             />
             <FErrorMessage name="email" />
             <FInput
@@ -89,4 +98,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default observer(Register);

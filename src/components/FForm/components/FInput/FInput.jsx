@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from 'react';
 import { useField } from 'formik';
-import s from './FInput.module.scss';
+import React, { forwardRef } from 'react';
 import FPasswordInput from '../FPasswordInput/FPasswordInput';
 import FTextInput from '../FTextInput/FTextInput';
+import s from './FInput.module.scss';
 
-const FInput = ({
-  label,
-  labelClassName = '',
-  type,
-  children,
-  ...props
-}) => {
-  const [field, mete] = useField(props);
+const FInput = ({ label, type, children, ...props }, ref) => {
+  const [field] = useField(props);
 
   let Input;
 
@@ -37,11 +31,11 @@ const FInput = ({
       <label htmlFor={props.name}>
         {label && <span className={s.labelText}>{label}</span>}
         <span className={s.inputInner}>
-          <Input type={type} {...field} {...props} />
+          <Input type={type} {...field} ref={ref} {...props} />
         </span>
       </label>
     </div>
   );
 };
 
-export default FInput;
+export default forwardRef(FInput);

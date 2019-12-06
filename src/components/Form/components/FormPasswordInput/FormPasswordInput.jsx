@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import s from './FormPasswordInput.module.scss';
 import Icon from 'src/components/Icon/Icon';
+import s from './FormPasswordInput.module.scss';
 
 const FormPasswordInput = ({ name, ...props }) => {
   const [isClosePassword, setIsClosePassword] = useState(true);
