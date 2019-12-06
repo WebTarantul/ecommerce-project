@@ -3,10 +3,11 @@ import fadeDownRight from 'src/assets/styles/transitions/fadeDownRight.module.sc
 import { useStore } from 'src/stores/createStore';
 import { observer } from 'mobx-react';
 import Api from 'src/api';
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import Avatar from '../Avatar/Avatar';
 import s from './UserBlock.module.scss';
+import { routes } from 'src/scenes/routes';
 
 const UserBlock = ({ hoverUser, user }) => {
   const store = useStore();
@@ -28,7 +29,11 @@ const UserBlock = ({ hoverUser, user }) => {
             <a className={s.email} href={`mailto:${user.email}`}>
               <span>{user.email}</span>
             </a>
-            <Link to="/">Profile</Link>
+            <Link
+              to={generatePath(routes.userProducts, { id: user.id })}
+            >
+              Profile
+            </Link>
           </div>
         </header>
         <div className={s.links}>
