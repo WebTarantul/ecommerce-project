@@ -1,6 +1,6 @@
 import Api from 'src/api';
 import { useStore } from '../createStore';
-import { Product } from '../schemas';
+import { ProductSchema } from '../schemas';
 import { asyncModel, createCollection } from '../utils';
 import { ProductModel } from './ProductModel';
 
@@ -17,8 +17,8 @@ export const ProductsCollection = createCollection(ProductModel, {
 function getProduct(id) {
   return async function getProductFlow(flowStore) {
     const res = await Api.Products.fetchProductById(id);
-    // const { entities } = normalize(res.data, Product);
-    flowStore.merge(res.data, Product);
+    // const { entities } = normalize(res.data, ProductSchema);
+    flowStore.merge(res.data, ProductSchema);
 
     // root.entities.users.add(res.data.owner.id, res.data.owner);
     // store.add(res.data.id, {

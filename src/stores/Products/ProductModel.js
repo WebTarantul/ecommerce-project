@@ -1,6 +1,8 @@
 import { types, getRoot } from 'mobx-state-tree';
+import Api from 'src/api';
 import { UserModel } from '../Auth/UserModel';
-import { safeReference } from '../utils';
+import { safeReference, asyncModel } from '../utils';
+import { ChatSchema } from '../schemas';
 
 export const ProductModel = types
   .model('ProductModel', {
@@ -14,8 +16,14 @@ export const ProductModel = types
     saved: false,
     createdAt: types.string,
     updatedAt: types.string,
-    owner: types.maybe(safeReference(types.late(() => UserModel))),
+    owner: safeReference(types.late(() => UserModel)),
+
+    createChat: asyncModel(createChat, false),
   })
+  .preProcessSnapshot((snapshot) => ({
+    ...snapshot,
+    owner: snapshot.ownerId,
+  }))
   .actions((self) => ({
     toggleSaved() {
       // const savedProductsStore = getRoot(self).savedProducts;
@@ -40,3 +48,23 @@ export const ProductModel = types
       }
     },
   }));
+
+function createChat(message) {
+  return async function createChatFlow(flowStore, store) {
+    let chatId;
+    try {
+      flowStore.start();
+
+      const res = await Api.Chats.createChat(store.id, message);
+      chatId = res.data.id;
+      res.data.participants = [store.owner];
+      flowStore.merge(res.data, ChatSchema);
+
+      flowStore.success();
+    } catch (error) {
+      flowStore.error(error);
+      throw error;
+    }
+    return chatId;
+  };
+}

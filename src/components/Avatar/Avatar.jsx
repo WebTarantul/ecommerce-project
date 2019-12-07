@@ -8,24 +8,28 @@ const g = Math.floor(Math.random() * 256);
 const b = Math.floor(Math.random() * 256);
 const rgb = `rgb(${r},${g},${b})`;
 
-const Avatar = ({ children, className, ...props }) => {
-  const { viewer } = useStore();
-
-  const initials = viewer.user
-    ? viewer.user.fullName
+const Avatar = ({
+  user,
+  children,
+  size = '40px',
+  className,
+  ...props
+}) => {
+  const initials = user
+    ? user.fullName
         .split(' ')
         .map((n) => n[0])
         .join('')
     : null;
 
-  return viewer.user ? (
+  return user ? (
     <div className={`${s.wrapper} ${className}`} {...props}>
-      <div className={s.inner}>
-        {viewer.user.avatar ? (
+      <div className={s.inner} style={{ width: size, height: size }}>
+        {user.avatar ? (
           <span
             className={s.avatar}
             style={{
-              backgroundImage: `url(${viewer.user.avatar})`,
+              backgroundImage: `url(${user.avatar})`,
               color: 'red',
             }}
           />

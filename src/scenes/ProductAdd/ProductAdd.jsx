@@ -26,7 +26,6 @@ const ProductAdd = () => {
 
 export default ProductAdd;
 
-ReactModal.setAppElement('#root');
 function AddModal({ children }) {
   const [modalIsOpen, setIsOpen] = useState(true);
   const history = useHistory();

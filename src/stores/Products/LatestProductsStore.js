@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree';
 import Api from '../../api';
-import { LatestProductCollection } from '../schemas';
+import { LatestProductCollectionSchema } from '../schemas';
 import { asyncModel } from '../utils';
 import { ProductModel } from './ProductModel';
 
@@ -21,11 +21,14 @@ function fetchLatest() {
     const res = await Api.Products.fetchLatest();
     // const { result, entities } = normalize(
     //   res.data,
-    //   LatestProductCollection,
+    //   LatestProductCollectionSchema,
     // );
     // root.entities.merge(entities);
 
-    const result = flowStore.merge(res.data, LatestProductCollection);
+    const result = flowStore.merge(
+      res.data,
+      LatestProductCollectionSchema,
+    );
     store.setItems(result);
 
     // const ids = res.data.map((item) => {

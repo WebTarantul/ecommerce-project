@@ -8,6 +8,7 @@ import { CSSTransition } from 'react-transition-group';
 import Avatar from '../Avatar/Avatar';
 import s from './UserBlock.module.scss';
 import { routes } from 'src/scenes/routes';
+import ViewerAvatar from '../ViewerAvatar/ViewerAvatar';
 
 const UserBlock = ({ hoverUser, user }) => {
   const store = useStore();
@@ -23,7 +24,7 @@ const UserBlock = ({ hoverUser, user }) => {
     >
       <div className={s.userBlock}>
         <header className={s.header}>
-          <Avatar />
+          <ViewerAvatar />
           <div className={s.nameBlock}>
             <b className={s.name}>{user.fullName}</b>
             <a className={s.email} href={`mailto:${user.email}`}>

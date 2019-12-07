@@ -1,6 +1,6 @@
 import { getRoot, types } from 'mobx-state-tree';
 import Api from 'src/api';
-import { Products } from '../schemas';
+import { ProductsSchema } from '../schemas';
 import { asyncModel, safeReference } from '../utils';
 import { ProductModel } from './ProductModel';
 
@@ -57,7 +57,7 @@ export const SavedProductsStore = types
 function fetchSavedProducts() {
   return async function fetchSavedProductsFlow(flowStore, store) {
     const res = await Api.Products.fetchSavedProducts();
-    const result = flowStore.merge(res.data, Products);
+    const result = flowStore.merge(res.data, ProductsSchema);
     store.add(result);
   };
 }

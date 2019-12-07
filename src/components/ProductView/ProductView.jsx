@@ -6,8 +6,9 @@ import { useStore } from 'src/stores/createStore';
 import NotFound from '../NotFound/NotFound';
 import s from './ProductView.module.scss';
 import Icon from '../Icon/Icon';
-import ProductOwner from '../ProductOwner/ProductOwner';
-import withFooter from '../HOCs/withFooter/withFooter';
+import ProductOwner, {
+  ProductOwnerSceleton,
+} from './components/ProductOwner/ProductOwner';
 
 const ProductView = () => {
   const { id } = useParams();
@@ -39,7 +40,10 @@ const ProductView = () => {
           <div className={s.left}>
             <article className={s.article}>
               <figure className={s.imageWrapper}>
-                <img src={product.photos[0]} alt={product.title} />
+                <img
+                  src={(product.photos && product.photos[0]) || ''}
+                  alt={product.title}
+                />
                 <span className={s.price}>${product.price}</span>
               </figure>
               <section className={s.section}>
@@ -78,7 +82,7 @@ const ProductView = () => {
   );
 };
 
-export default withFooter(observer(ProductView));
+export default observer(ProductView);
 
 function ProductViewSceleton() {
   return (

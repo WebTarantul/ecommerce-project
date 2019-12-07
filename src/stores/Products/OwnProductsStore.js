@@ -2,7 +2,7 @@ import { types, getParent } from 'mobx-state-tree';
 import Api from 'src/api';
 import { ProductModel } from './ProductModel';
 import { asyncModel } from '../utils';
-import { Products } from '../schemas';
+import { ProductsSchema } from '../schemas';
 
 export const OwnProductsStore = types
   .model('OwnProductsStore', {
@@ -24,7 +24,7 @@ function fetchItems() {
   return async function fetchItemsFlow(flowStore, store) {
     const userId = getParent(store).id;
     const res = await Api.Products.fetchUserProducts(userId);
-    const result = flowStore.merge(res.data.list, Products);
+    const result = flowStore.merge(res.data.list, ProductsSchema);
     store.setItems(result);
   };
 }

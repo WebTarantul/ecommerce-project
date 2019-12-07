@@ -10,6 +10,7 @@ import { observer } from 'mobx-react';
 import Avatar from 'src/components/Avatar/Avatar';
 import { Link } from 'react-router-dom';
 import s from './UserButtons.module.scss';
+import ViewerAvatar from 'src/components/ViewerAvatar/ViewerAvatar';
 
 const UserButtons = ({ headerIsLight }) => {
   const darkModeClass = headerIsLight ? 'darkText' : '';
@@ -28,15 +29,14 @@ const UserButtons = ({ headerIsLight }) => {
       >
         Sell
       </Link>
-
       {store.auth.isLoggedIn ? (
-        <Avatar
+        <ViewerAvatar
           className={s.item}
           onMouseLeave={toggleHover}
           onMouseEnter={toggleHover}
         >
           <UserBlock user={store.viewer.user} {...{ hoverUser }} />
-        </Avatar>
+        </ViewerAvatar>
       ) : (
         <Link className={`${s.login} ${s.item}`} to={routes.login}>
           Login
