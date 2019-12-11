@@ -8,18 +8,26 @@ import UserBlock from 'src/components/UserBlock/UserBlock';
 import { useStore } from 'src/stores/createStore';
 import { observer } from 'mobx-react';
 import Avatar from 'src/components/Avatar/Avatar';
+import cn from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import s from './UserButtons.module.scss';
 
+const cx = cn.bind(s);
+
 const UserButtons = ({ headerIsLight }) => {
-  const darkModeClass = headerIsLight ? 'darkText' : '';
   const store = useStore();
   const [hoverUser, setHoverUser] = useState(false);
+
   const toggleHover = () => setHoverUser(!hoverUser);
+
   return (
-    <div className={`${s.wrapper} ${s[darkModeClass]}`}>
+    <div
+      className={cx('wrapper', {
+        [s.darkText]: headerIsLight,
+      })}
+    >
       <Link
-        className={`${s.btn} ${s.item}`}
+        className={cx('btn', 'item')}
         to={{
           pathname: routes.productAdd,
           state: { modal: true },
@@ -37,12 +45,12 @@ const UserButtons = ({ headerIsLight }) => {
           <UserBlock user={store.viewer.user} {...{ hoverUser }} />
         </Avatar>
       ) : (
-        <Link className={`${s.login} ${s.item}`} to={routes.login}>
+        <Link className={cx('login', 'item')} to={routes.login}>
           Login
         </Link>
       )}
       <button
-        className={`${s.favorite} ${s.item}`}
+        className={cx('favorite', 'item')}
         type="button"
         aria-label="favorite"
       >

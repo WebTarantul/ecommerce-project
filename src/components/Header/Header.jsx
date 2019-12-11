@@ -1,24 +1,26 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import React from 'react';
 import { routes } from 'src/scenes/routes';
 import { Link } from 'react-router-dom';
+import cn from 'classnames/bind';
 import Icon from '../Icon/Icon';
 import s from './Header.module.scss';
 import UserButtons from './components/UserButtons/UserButtons';
 
-const Header = ({ isLight, children }) => {
-  const darkModeClass = isLight ? s.lightMode : '';
+const cx = cn.bind(s);
 
+const Header = ({ isLight, children }) => {
   return (
-    <header className={`${s.wrapper} ${darkModeClass}`}>
+    <header className={cx('wrapper', { lightMode: isLight })}>
       <div className={s.container}>
         <div className={s.logoBlock}>
           <Link className={s.logoLink} to={routes.home}>
-            {isLight && (
-              <Icon name="logo" classNameText={s.logoText} isDark />
-            )}
-            {!isLight && (
-              <Icon name="logo" classNameText={s.logoText} />
-            )}
+            <Icon
+              name="logo"
+              classNameText={s.logoText}
+              isDark={isLight}
+            />
           </Link>
         </div>
         <div className={s.userBlock}>

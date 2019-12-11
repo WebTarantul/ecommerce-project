@@ -35,7 +35,7 @@ export function asyncModel(thunk, auto = true) {
       error(error) {
         self.isLoading = false;
         self.isError = true;
-        console.error(error.info || error);
+        console.error(error);
       },
       async _auto(promise) {
         try {
