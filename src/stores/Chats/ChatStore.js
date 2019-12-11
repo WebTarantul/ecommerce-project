@@ -32,7 +32,6 @@ export const ChatStore = types
 function fetchChats() {
   return async function fetchChatsFlow(flowStore, store, root) {
     const res = await Api.Chats.fetchChats();
-    console.log(res.data);
     const result = flowStore.merge(res.data, ChatCollectionSchema);
 
     store.runInAction((self) => {

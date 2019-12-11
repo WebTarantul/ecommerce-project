@@ -24,10 +24,14 @@ export const MessagesStore = types
         message,
         MessageSchema,
       );
-      self.items.unshift(result);
+      self.items.push(result);
     },
     addMessages(messagesArr) {
-      self.items.unshift(...messagesArr);
+      messagesArr.forEach((i) => {
+        if (self.items.findIndex((item) => item.id === i) === -1) {
+          self.items.unshift(i);
+        }
+      });
     },
   }));
 

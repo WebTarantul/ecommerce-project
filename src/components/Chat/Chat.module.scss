@@ -1,19 +1,20 @@
 .wrapper {
   display: grid;
   grid-template-columns: 565px auto;
+  max-height: 100%;
+  overflow: auto;
+
 }
 
 .aside {
   background: #ffffff;
   padding: 20px 12px;
   border-right: 1px solid #edeef1;
+
+  overflow: auto;
+  max-height: 100%;
 }
 
-.list {
-  list-style: none;
-  padding: 0;
-}
-
-.item:not(:first-child) {
-  margin-top: 10px;
+.main {
+  height: calc(100vh - 77px);
 }

@@ -1,1 +1,51 @@
-/* your css code */
+.wrapper {
+  padding: 5px 17px;
+  background: #ffffff;
+  border-bottom: 1px solid #e7e9ed;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+
+}
+
+.product {
+  padding: 11px;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  padding-right: 60px;
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 18px;
+    margin-right: 9px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    background-image: url(./icon-open-in-new.svg);
+    transform: translateY(-50%);
+  }
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  margin-right: 52px;
+
+  .name {
+    margin: 0;
+    margin-left: 16px;
+  }
+}
+
+.productLink {
+  text-decoration: none;
+  color: #000000;
+}

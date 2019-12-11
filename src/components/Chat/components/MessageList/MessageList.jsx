@@ -1,38 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import cn from 'classnames/bind';
+import { observer } from 'mobx-react';
+import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router';
 import { useStore } from 'src/stores/createStore';
-import { observer } from 'mobx-react';
-// import { Test } from './MessageList.styles';
+import MessageItem from '../MessageItem/MessageItem';
+import s from './MessageList.module.scss';
 
-const MessageList = (props) => {
+const cx = cn.bind(s);
+
+const MessageList = ({ className, ...props }) => {
   const { chatId } = useParams();
   const chat = useStore((store) => store.chats.getById(chatId));
-  const [message, setMessage] = useState('');
+  const listRef = useRef(null);
+
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollTop = listRef.current.scrollHeight;
+    }
+  });
+
   useEffect(() => {
     if (chat) {
       chat.messages.fetchMessages.run();
     }
   }, [chat]);
 
-  function handleSend() {
-    chat.sendMessage.run(message);
-  }
   if (!chat) {
     return null;
   }
-  return (
-    <div className="MessageListWrapper">
-      <input
-        type="text"
-        onChange={(evt) => setMessage(evt.target.value)}
-        value={message}
-      />
-      <button onClick={handleSend}>Send</button>
 
-      <ul>
+  return (
+    <div className={cx('wrapper', className)} ref={listRef}>
+      <ul className={s.list}>
         {chat.messages.asList.map((i) => {
-          return <li key={i.id}>{i.text}</li>;
+          return <MessageItem key={i.id} message={i} />;
         })}
       </ul>
     </div>

@@ -1,1 +1,53 @@
-/* your css code */
+@import '../../../../assets/styles/component-base.scss';
+
+.form {
+  position: relative;
+}
+
+.buttons {
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 100%;
+    border: none;
+    background: none;
+
+    span {
+      @include visually-hidden;
+    }
+  }
+}
+
+.label {
+  display: block;
+}
+
+.labelText {
+  @include visually-hidden;
+}
+
+.input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 16.5px 85px 16.5px 20px;
+  border: 1px solid #e9ebf2;
+  color: #97a3b4;
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 22px;
+
+  &::placeholder {
+    color: #97a3b4;
+
+  }
+}

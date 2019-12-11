@@ -1,1 +1,72 @@
-/* your css code */
+@import '../../../../assets/styles/component-base.scss';
+
+.wrapper {
+  display: flex;
+  justify-content: flex-start;
+
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  cursor: default;
+
+
+}
+
+.message {
+  padding: 6px 10px;
+  color: #ffffff;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26.4px;
+  background-color: $accent;
+  border-radius: 5px;
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 9px;
+    height: 9px;
+    background: $accent;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-top: 7px;
+    margin-left: -8px;
+
+  }
+}
+
+.ownerMessage {
+  justify-content: flex-end;
+
+  .message {
+    color: #131314;
+    background: #ffffff;
+
+    &:before {
+      clip-path: polygon(100% 0, 0 0, 0 100%);
+      background: #ffffff;
+      left: unset;
+      right: 0;
+      margin-right: -8px;
+
+    }
+  }
+}
+
+.timeAgo {
+  display: inline-block;
+  margin-top: 6px;
+  color: #97a3b4;
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
