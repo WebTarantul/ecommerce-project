@@ -1,4 +1,4 @@
-import { types, getRoot } from 'mobx-state-tree';
+import { types, getRoot, getSnapshot } from 'mobx-state-tree';
 import Api from 'src/api';
 import { UserModel } from '../Auth/UserModel';
 import { safeReference, asyncModel } from '../utils';
@@ -57,7 +57,7 @@ function createChat(message) {
 
       const res = await Api.Chats.createChat(store.id, message);
       chatId = res.data.id;
-      res.data.participants = [store.owner];
+      res.data.participants = [getSnapshot(store.owner)];
       flowStore.merge(res.data, ChatSchema);
 
       flowStore.success();

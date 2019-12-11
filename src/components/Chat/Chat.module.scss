@@ -1,1 +1,19 @@
-/* your css code */
+.wrapper {
+  display: grid;
+  grid-template-columns: 565px auto;
+}
+
+.aside {
+  background: #ffffff;
+  padding: 20px 12px;
+  border-right: 1px solid #edeef1;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.item:not(:first-child) {
+  margin-top: 10px;
+}

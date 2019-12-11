@@ -21,4 +21,4 @@ const App = () => {
 };
 export default App;
 
-Reactotron.trackMstNode(rootStore);
+// Reactotron.trackMstNode(rootStore);

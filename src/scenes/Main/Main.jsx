@@ -9,6 +9,7 @@ import Product from '../Product/Product';
 import ProductAdd from '../ProductAdd/ProductAdd';
 import ProfileList from '../ProfileList/ProfileList';
 import SavedProducts from '../SavedProducts/SavedProducts';
+import Inbox from '../Inbox/Inbox';
 
 const Main = () => (
   <div className="MainWrapper">
@@ -18,6 +19,7 @@ const Main = () => (
       <Route path={routes.savedProducts} component={SavedProducts} />
       <Route path={routes.userProducts} component={ProfileList} />
       <Route path={routes.product} component={Product} />
+      <Route path={routes.inbox} component={Inbox} />
 
       <Route component={NotFound} />
     </Switch>

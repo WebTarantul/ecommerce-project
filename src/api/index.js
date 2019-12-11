@@ -1,5 +1,5 @@
 import * as Api from './Api';
-import { SocketApi } from './SocketApi';
+import SocketApi from './SocketApi';
 
 export { SocketApi };
 

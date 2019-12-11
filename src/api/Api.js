@@ -93,4 +93,15 @@ export const Chats = {
       message,
     });
   },
+  fetchChats() {
+    return axios.get(`/api/chats`);
+  },
+  sendMessage(chatId, text) {
+    return axios.post(`/api/chats/${chatId}/messages`, {
+      message: text,
+    });
+  },
+  fetchMessages(chatId) {
+    return axios.get(`/api/chats/${chatId}/messages`);
+  },
 };

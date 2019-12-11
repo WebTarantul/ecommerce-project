@@ -20,6 +20,9 @@ const UserButtons = ({ headerIsLight }) => {
   const hasSaved = store.savedProducts.savedQuantity > 0;
   return (
     <div className={`${s.wrapper} ${s[darkModeClass]}`}>
+      <Link to={routes.inbox}>
+        <Icon name="inbox" />
+      </Link>
       <Link
         className={`${s.btn} ${s.item}`}
         to={{

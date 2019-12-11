@@ -1,15 +1,18 @@
 import socket from 'socket.io-client';
 
-export class SocketApi {
+class SocketApi {
   socket = null;
 
   init(token) {
-    this.socket = socket('http://localhost:3000', {
-      query: {
-        token,
+    this.socket = socket(
+      'https://apiko-intensive-backend.herokuapp.com/',
+      {
+        query: {
+          token,
+        },
+        transports: ['websocket'],
       },
-      transports: ['websocket'],
-    });
+    );
     this.socket.on('connect', () => {
       console.log('Connected');
       console.log({ socket });
@@ -18,7 +21,9 @@ export class SocketApi {
 
   handleMessage(handler) {
     this.socket.on('message', (message) => {
-      handler(JSON.parse(message));
+      handler(message);
     });
   }
 }
+
+export default new SocketApi();

@@ -1,1 +1,73 @@
-/* your css code */
+@import '../../../../assets/styles/component-base.scss';
+
+.wrapper {
+  box-sizing: border-box;
+  padding: 30px 26px 30px 20px;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.12);
+  background-color: #ffffff;
+  transition: all .25s ease-in-out;
+  transform: translateX(0);
+
+}
+
+.link {
+  text-decoration: none;
+  color: $font-color;
+}
+
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.text {
+  width: 196px;
+  box-sizing: border-box;
+  padding-right: 5px;
+
+  p {
+    margin: 0;
+  }
+}
+
+.name {
+  color: #000000;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.lastMessage {
+  color: rgba(43, 43, 43, 0.5);
+  font-family: Roboto;
+  font-size: 15px;
+  line-height: 22.81px;
+}
+
+.productInner {}
+
+.product {
+  box-sizing: border-box;
+  padding-left: 22px;
+  padding-right: 10px;
+  width: 245px;
+}
+
+.rightBorder {
+  border-right: 2px solid #f3f4f6;
+}
+
+.time {
+  padding-left: 11px;
+  color: rgba(43, 43, 43, 0.5);
+  font-family: Roboto;
+  font-size: 15px;
+  line-height: 22.81px;
+}
+
+.active {
+  border-left: 4px solid $accent;
+  transform: translateX(12px);
+}
