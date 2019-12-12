@@ -4,7 +4,6 @@ import { Route } from 'react-router-dom';
 import { routes } from 'src/scenes/routes';
 import s from './Chat.module.scss';
 import ChatList from './components/ChatList/ChatList';
-import MessageList from './components/MessageList/MessageList';
 import MessagesBlock from './components/MessagesBlock/MessagesBlock';
 
 const Chat = () => {

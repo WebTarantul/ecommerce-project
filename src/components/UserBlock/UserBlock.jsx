@@ -1,14 +1,12 @@
-import React from 'react';
-import fadeDownRight from 'src/assets/styles/transitions/fadeDownRight.module.scss';
-import { useStore } from 'src/stores/createStore';
 import { observer } from 'mobx-react';
-import Api from 'src/api';
-import { Link, generatePath } from 'react-router-dom';
+import React from 'react';
+import { generatePath, Link } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
-import Avatar from '../Avatar/Avatar';
-import s from './UserBlock.module.scss';
+import fadeDownRight from 'src/assets/styles/transitions/fadeDownRight.module.scss';
 import { routes } from 'src/scenes/routes';
+import { useStore } from 'src/stores/createStore';
 import ViewerAvatar from '../ViewerAvatar/ViewerAvatar';
+import s from './UserBlock.module.scss';
 
 const UserBlock = ({ hoverUser, user }) => {
   const store = useStore();

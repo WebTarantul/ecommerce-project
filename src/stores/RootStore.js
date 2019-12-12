@@ -2,12 +2,11 @@ import { types as t, types } from 'mobx-state-tree';
 import Api, { SocketApi } from 'src/api';
 import { AuthStore } from './Auth/AuthStore';
 import { ViewerStore } from './Auth/ViewerStore';
+import { ChatStore } from './Chats/ChatStore';
 import { EntitiesStore } from './EntitiesStore';
 import { LatestProductsStore } from './Products/LatestProductsStore';
 import { ProductAddStore } from './Products/ProductAddStore';
 import { SavedProductsStore } from './Products/SavedProductsStore';
-import { ChatStore } from './Chats/ChatStore';
-import { MessagesStore } from './Chats/MessagesStore';
 
 export const RootStore = t
   .model('RootStore', {

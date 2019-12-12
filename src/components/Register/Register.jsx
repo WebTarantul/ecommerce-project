@@ -1,19 +1,18 @@
-import React, { useRef, useEffect } from 'react';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { Link, useHistory } from 'react-router-dom';
-import { useStore } from 'src/stores/createStore';
-import { routes } from 'src/scenes/routes';
 import { observer } from 'mobx-react';
+import React, { useEffect, useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { routes } from 'src/scenes/routes';
+import { useStore } from 'src/stores/createStore';
+import * as Yup from 'yup';
 import CenteringOfForm from '../CenteringOfForm/CenteringOfForm';
-import FTextInput from '../FForm/components/FTextInput/FTextInput';
+import FErrorMessage from '../FForm/components/FErrorMessage/FErrorMessage';
+import FInput from '../FForm/components/FInput/FInput';
 import FForm from '../FForm/FForm';
 import FormButton from '../Form/components/FormButton/FormButton';
 import FormFooter from '../FormFooter/FormFooter';
-import FErrorMessage from '../FForm/components/FErrorMessage/FErrorMessage';
 import Spinner from '../Spinner';
 import s from './Register.module.scss';
-import FInput from '../FForm/components/FInput/FInput';
 
 const Register = () => {
   const {

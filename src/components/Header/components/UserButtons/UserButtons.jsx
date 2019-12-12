@@ -1,16 +1,15 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
-import Icon from 'src/components/Icon/Icon';
-import { routes } from 'src/scenes/routes';
-import UserBlock from 'src/components/UserBlock/UserBlock';
-import { useStore } from 'src/stores/createStore';
 import { observer } from 'mobx-react';
-import Avatar from 'src/components/Avatar/Avatar';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import s from './UserButtons.module.scss';
+import Icon from 'src/components/Icon/Icon';
+import UserBlock from 'src/components/UserBlock/UserBlock';
 import ViewerAvatar from 'src/components/ViewerAvatar/ViewerAvatar';
+import { routes } from 'src/scenes/routes';
+import { useStore } from 'src/stores/createStore';
+import s from './UserButtons.module.scss';
 
 const UserButtons = ({ headerIsLight }) => {
   const darkModeClass = headerIsLight ? 'darkText' : '';
@@ -21,7 +20,7 @@ const UserButtons = ({ headerIsLight }) => {
   return (
     <div className={`${s.wrapper} ${s[darkModeClass]}`}>
       <Link to={routes.inbox}>
-        <Icon name="inbox" />
+        <Icon name="inbox" circleFill="transparent" />
       </Link>
       <Link
         className={`${s.btn} ${s.item}`}

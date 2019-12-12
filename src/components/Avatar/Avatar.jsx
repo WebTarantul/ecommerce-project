@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import { useStore } from 'src/stores/createStore';
 import s from './Avatar.module.scss';
 
 const r = Math.floor(Math.random() * 256);
