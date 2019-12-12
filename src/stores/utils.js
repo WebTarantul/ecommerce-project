@@ -43,7 +43,6 @@ export function asyncModel(thunk, auto = true) {
         self.isLoading = false;
         self.isSuccess = false;
         self.isError = true;
-        console.error(error);
       },
       async _auto(promise) {
         try {
@@ -52,6 +51,7 @@ export function asyncModel(thunk, auto = true) {
           self.success();
         } catch (error) {
           self.error(error);
+          throw error;
         }
       },
       merge(data, schema) {

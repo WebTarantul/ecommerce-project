@@ -1,16 +1,17 @@
-import React from 'react';
-import Modal from 'src/components/Modal/Modal';
-import FForm from 'src/components/FForm/FForm';
-import FFormButton from 'src/components/FForm/components/FFormButton/FFormButton';
 import { Formik } from 'formik';
-import Avatar from 'src/components/Avatar/Avatar';
-import FInput from 'src/components/FForm/components/FInput/FInput';
-import FErrorMessage from 'src/components/FForm/components/FErrorMessage/FErrorMessage';
-import * as Yup from 'yup';
 import { observer } from 'mobx-react';
-import { useHistory, generatePath } from 'react-router-dom';
-import { routes } from 'src/scenes/routes';
+import React from 'react';
+import { generatePath, useHistory } from 'react-router-dom';
+import Avatar from 'src/components/Avatar/Avatar';
+import ErrorIndicator from 'src/components/ErrorIndicator';
+import FErrorMessage from 'src/components/FForm/components/FErrorMessage/FErrorMessage';
+import FFormButton from 'src/components/FForm/components/FFormButton/FFormButton';
+import FInput from 'src/components/FForm/components/FInput/FInput';
+import FForm from 'src/components/FForm/FForm';
+import Modal from 'src/components/Modal/Modal';
 import Spinner from 'src/components/Spinner';
+import { DelayRedirect, routes } from 'src/scenes/routes';
+import * as Yup from 'yup';
 import s from './ChatWithSellerModal.module.scss';
 
 const validationSchema = Yup.object({
@@ -31,10 +32,22 @@ const ChatWithSellerModal = ({ user, product, ...props }) => {
         const chatId = await product.createChat.run(values.message);
         history.push(generatePath(routes.inbox, { chatId }));
       } catch (error) {
-        console.error(error);
+        console.error(error.response);
       }
     },
   };
+
+  if (product.createChat.isError) {
+    return (
+      <Modal className={s.modal} {...props}>
+        <ErrorIndicator
+          style={{ backgroundColor: '#fff' }}
+          text={`We are sorry, but ${product.createChat.error.response.data.error}`}
+        />
+        <DelayRedirect to={routes.inbox} />
+      </Modal>
+    );
+  }
 
   return (
     <Modal className={s.modal} {...props}>

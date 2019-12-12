@@ -1,9 +1,15 @@
 import { Formik } from 'formik';
 import { observer } from 'mobx-react';
-import React, { useEffect, useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  Link,
+  useHistory,
+  useLocation,
+  generatePath,
+} from 'react-router-dom';
 import { routes } from 'src/scenes/routes';
 import { useStore } from 'src/stores/createStore';
+import cn from 'classnames/bind';
 import * as Yup from 'yup';
 import CenteringOfForm from '../CenteringOfForm/CenteringOfForm';
 import FErrorMessage from '../FForm/components/FErrorMessage/FErrorMessage';
@@ -13,8 +19,13 @@ import FormButton from '../Form/components/FormButton/FormButton';
 import FormFooter from '../FormFooter/FormFooter';
 import Spinner from '../Spinner';
 import s from './Register.module.scss';
+import ErrorBar from '../ErrorBar/ErrorBar';
+
+const cx = cn.bind(s);
 
 const Register = () => {
+  const [error, setError] = useState(null);
+  const location = useLocation();
   const {
     auth: { register },
   } = useStore();
@@ -40,10 +51,31 @@ const Register = () => {
         .oneOf([Yup.ref('password')], 'Passwords are not the same!')
         .required('Password confirmation is required!'),
     }),
+
     onSubmit: async (values, { resetForm }) => {
-      await register.run(values);
-      resetForm();
-      history.push(routes.home);
+      try {
+        await register.run(values);
+        resetForm();
+        if (location.state && !!location.state.fromInboxButton) {
+          history.push(routes.inbox);
+        } else if (
+          location.state &&
+          !!location.state.fromChatButton
+        ) {
+          history.push(
+            generatePath(routes.product, {
+              id: location.state.fromProductId,
+            }),
+            {
+              fromChatButton: location.state.fromChatButton,
+            },
+          );
+        } else {
+          history.push(routes.home);
+        }
+      } catch (err) {
+        setError(err.response.data.error);
+      }
     },
   };
 
@@ -56,7 +88,10 @@ const Register = () => {
     <>
       <CenteringOfForm>
         <Formik {...formikProps}>
-          <FForm title="Register">
+          <FForm
+            title="Register"
+            classNameWrapper={cx({ error: register.isError })}
+          >
             <FInput
               name="email"
               type="email"
@@ -98,6 +133,11 @@ const Register = () => {
           I already have an account,
           <Link to={routes.login}>LOG IN</Link>
         </FormFooter>
+        {register.isError && (
+          <ErrorBar
+            text={`We are sorry but an error occurred: ${error}`}
+          />
+        )}
       </CenteringOfForm>
     </>
   );

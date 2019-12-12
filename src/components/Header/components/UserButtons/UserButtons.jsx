@@ -9,18 +9,30 @@ import UserBlock from 'src/components/UserBlock/UserBlock';
 import ViewerAvatar from 'src/components/ViewerAvatar/ViewerAvatar';
 import { routes } from 'src/scenes/routes';
 import { useStore } from 'src/stores/createStore';
+import cn from 'classnames/bind';
 import s from './UserButtons.module.scss';
 
+const cx = cn.bind(s);
+
 const UserButtons = ({ headerIsLight }) => {
-  const darkModeClass = headerIsLight ? 'darkText' : '';
   const store = useStore();
   const [hoverUser, setHoverUser] = useState(false);
   const toggleHover = () => setHoverUser(!hoverUser);
   const hasSaved = store.savedProducts.savedQuantity > 0;
+
   return (
-    <div className={`${s.wrapper} ${s[darkModeClass]}`}>
-      <Link to={routes.inbox}>
-        <Icon name="inbox" circleFill="transparent" />
+    <div className={cx('wrapper', { darkText: headerIsLight })}>
+      <Link
+        to={{
+          pathname: routes.inbox,
+          state: { fromInboxButton: true },
+        }}
+      >
+        <Icon
+          name="inbox"
+          circleFill="transparent"
+          className={s.inboxIcon}
+        />
       </Link>
       <Link
         className={`${s.btn} ${s.item}`}

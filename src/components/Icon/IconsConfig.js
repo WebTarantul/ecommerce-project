@@ -237,12 +237,13 @@ export default {
       </g>
     </svg>
   ),
-  inbox: ({ fill = '#fff', circleFill = '#EB3535' }) => (
+  inbox: ({ fill = '#fff', circleFill = '#EB3535', ...props }) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="22"
       height="22"
       fill="none"
+      {...props}
     >
       <path
         fillRule="evenodd"

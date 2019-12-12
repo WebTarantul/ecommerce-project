@@ -1,6 +1,11 @@
 import { observer } from 'mobx-react';
 import React, { useEffect, useState } from 'react';
-import { generatePath, Link } from 'react-router-dom';
+import {
+  generatePath,
+  Link,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 import Sceleton from 'react-loading-skeleton';
 import { routes } from 'src/scenes/routes';
 import { useStore } from 'src/stores/createStore';
@@ -11,6 +16,8 @@ import ChatWithSellerModal from '../ChatWithSellerModal/ChatWithSellerModal';
 
 const ProductOwner = ({ ownerId, product }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const history = useHistory();
+  const location = useLocation();
   const store = useStore();
   const { users } = store.entities;
   const user = users.get(ownerId);
@@ -18,6 +25,9 @@ const ProductOwner = ({ ownerId, product }) => {
   useEffect(() => {
     if (!user) {
       users.fetchUser.run(ownerId);
+    }
+    if (location.state && location.state.fromChatButton) {
+      setIsModalOpen(true);
     }
   }, []);
 
@@ -28,6 +38,12 @@ const ProductOwner = ({ ownerId, product }) => {
   }
 
   const handleChatWithSeller = () => {
+    if (!store.auth.isLoggedIn) {
+      history.push(routes.login, {
+        fromChatButton: true,
+        fromProductId: product.id,
+      });
+    }
     setIsModalOpen(true);
   };
   const handleCloseModal = () => {

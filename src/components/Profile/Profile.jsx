@@ -13,13 +13,15 @@ const Profile = () => {
   const entities = useStore((store) => store.entities);
   const user = entities.users.get(userId);
   const productList = user && user.ownProducts.items;
+
   useEffect(() => {
     if (!user) {
       entities.users.fetchUser.run(userId);
-    } else if (user && user.ownProducts.items.length === 0) {
+    } else {
       user.ownProducts.fetchItems.run();
     }
   }, [user]);
+
   return (
     <div className={s.profile}>
       <div className={s.container}>
@@ -34,7 +36,9 @@ const Profile = () => {
         {user && user.ownProducts.items.length !== 0 && (
           <ProductList productList={productList} />
         )}
-        {user && user.ownProducts.fetchItems.isLoading && <Spinner />}
+        {user &&
+          user.ownProducts.fetchItems.isLoading &&
+          user.ownProducts.items.length === 0 && <Spinner />}
       </div>
     </div>
   );

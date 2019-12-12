@@ -69,6 +69,13 @@
   .inner {
     align-items: flex-end;
   }
+
+  .status {
+    right: unset;
+    left: 0;
+    margin-right: 0;
+    margin-left: -12px;
+  }
 }
 
 .timeAgo {
