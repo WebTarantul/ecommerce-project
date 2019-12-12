@@ -8,12 +8,18 @@ const ChatInput = ({ chat, ...props }) => {
 
   function handleSend(evt) {
     evt.preventDefault();
-    chat.sendMessage.run(message);
+    chat.messages.sendMessage(message);
+    setMessage('');
   }
 
   return (
     <>
-      <form className={s.form} action="#" onSubmit={handleSend}>
+      <form
+        className={s.form}
+        action="#"
+        onSubmit={handleSend}
+        {...props}
+      >
         <label className={s.label} htmlFor="chatInput">
           <span className={s.labelText}>
             Type your message here..

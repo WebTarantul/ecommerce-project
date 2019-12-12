@@ -33,15 +33,30 @@
   }
 }
 
+.userLink {
+  padding: 5px 0;
+  display: inline-flex;
+  text-decoration: none;
+
+  &:hover {
+    .name {
+      text-decoration: underline;
+    }
+  }
+}
+
 .user {
   display: flex;
   align-items: center;
-  padding: 5px 0;
   margin-right: 52px;
 
   .name {
     margin: 0;
     margin-left: 16px;
+    color: #131314;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 400;
   }
 }
 

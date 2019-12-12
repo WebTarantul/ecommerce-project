@@ -11,16 +11,19 @@
   position: relative;
   overflow: hidden;
 }
+
 .link {
   display: flex;
   flex-direction: column;
   height: 100%;
 
   text-decoration: none;
+
   &:hover {
     text-decoration: none;
-    .img{
-      transform:  scale(1.15);
+
+    .img {
+      transform: scale(1.15);
     }
   }
 }
@@ -39,11 +42,13 @@
   position: relative;
   background: #e4e4e4;
 }
-.img{
+
+.img {
   transition: 7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   max-width: 100%;
   max-height: 100%;
 }
+
 .favorite {
   position: absolute;
   top: 132px;
@@ -59,7 +64,7 @@
 
   height: 30px;
   width: 30px;
-  cursor: pointer;    
+  cursor: pointer;
 
   svg {
     transition: all .3s;
@@ -67,7 +72,7 @@
   }
 
   &:hover {
-    animation: pulse 2s infinite;
+    animation: shadowPulse 2s infinite;
 
     svg {
 
@@ -105,16 +110,4 @@
   margin-top: 7px;
 }
 
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba($accent, .4);
-  }
-
-  70% {
-    box-shadow: 0 0 0 10px rgba($accent, .0);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba($accent, .0);
-  }
-}
+@include shadowPulse;

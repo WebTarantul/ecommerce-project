@@ -6,12 +6,17 @@
 
   width: 100%;
   margin-bottom: 20px;
+
+  &:first-child {
+    margin-bottom: 0;
+  }
 }
+
 
 .inner {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   cursor: default;
 
 
@@ -60,6 +65,10 @@
 
     }
   }
+
+  .inner {
+    align-items: flex-end;
+  }
 }
 
 .timeAgo {
@@ -70,3 +79,42 @@
   font-size: 13px;
   font-weight: 300;
 }
+
+.status {
+  display: block;
+  box-sizing: border-box;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #97a3b4;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-right: -12px;
+
+
+  &.derived {
+    border-color: #15c515;
+
+  }
+
+  &.read {
+    border-color: #15c515;
+    background: #15c515;
+  }
+
+  &.sending {
+    border-color: #97a3b4;
+    animation: pulse 1s infinite;
+
+  }
+
+  &.error {
+    border-color: red;
+    background: red;
+  }
+
+
+}
+
+@include pulse;

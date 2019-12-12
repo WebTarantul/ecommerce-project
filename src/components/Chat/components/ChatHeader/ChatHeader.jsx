@@ -1,18 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { observer } from 'mobx-react';
-import s from './ChatHeader.module.scss';
 import Avatar from 'src/components/Avatar/Avatar';
-import ChatProduct from '../ChatProduct/ChatProduct';
 import { Link, generatePath } from 'react-router-dom';
 import { routes } from 'src/scenes/routes';
+import { observer } from 'mobx-react';
+import s from './ChatHeader.module.scss';
+import ChatProduct from '../ChatProduct/ChatProduct';
 
 const ChatHeader = ({ chat }) => {
-  console.log(chat);
   return (
     <div className={s.wrapper}>
       <div className={s.content}>
-        <User participant={chat.participant} />
+        <Link
+          className={s.userLink}
+          to={generatePath(routes.userProducts, {
+            id: chat.participant.id,
+          })}
+        >
+          <User participant={chat.participant} />
+        </Link>
         <Link
           className={s.productLink}
           to={generatePath(routes.product, { id: chat.product.id })}

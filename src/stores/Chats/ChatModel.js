@@ -1,10 +1,7 @@
-import { types, getRoot } from 'mobx-state-tree';
-import { ProductModel } from '../Products/ProductModel';
+import { types } from 'mobx-state-tree';
 import { UserModel } from '../Auth/UserModel';
+import { ProductModel } from '../Products/ProductModel';
 import { MessageModel } from './MessageModel';
-import { asyncModel } from '../utils';
-import Api from 'src/api';
-import { MessageSchema } from '../schemas';
 import { MessagesStore } from './MessagesStore';
 
 export const ChatModel = types
@@ -18,8 +15,6 @@ export const ChatModel = types
     messages: types.optional(MessagesStore, {}),
     product: types.reference(ProductModel),
     participants: types.array(types.reference(UserModel)),
-
-    sendMessage: asyncModel(sendMessage),
   })
   .views((self) => ({
     get participant() {
@@ -58,11 +53,3 @@ export const ChatModel = types
       //   snapshot.user,
     };
   });
-
-function sendMessage(text) {
-  return async function sendMessageFlow(flowStore, store) {
-    const res = await Api.Chats.sendMessage(store.id, text);
-    // const result = flowStore.merge(res.data, MessageSchema);
-    store.messages.addMessage(res.data);
-  };
-}
