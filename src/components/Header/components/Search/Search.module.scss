@@ -3,38 +3,45 @@
 .wrapper {
   @include list-container
 }
-.inner{
+
+.inner {
   padding-bottom: 14px;
   padding-top: 24px;
-  @media only screen and (max-width: $tablets){
+
+  @media only screen and (max-width: $tablets) {
     padding: 10px 0;
   }
-  
+
 }
 
 .form {
   display: grid;
   grid-template-columns: 1fr 198px 176px;
   grid-gap: 7px;
-  label{
-   position: relative;
+
+  label {
+    position: relative;
   }
-  .icon{
+
+  .icon {
     position: absolute;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
   }
-  .searchLabel{
-    .icon{
+
+  .searchLabel {
+    .icon {
       margin-left: 18px;
     }
   }
-  .locationLabel{
-    .icon{
+
+  .locationLabel {
+    .icon {
       margin-left: 10px;
     }
   }
+
   input {
     display: block;
     width: 100%;
@@ -45,17 +52,20 @@
     border-radius: 4px;
     background-color: #ffffff;
     border: none;
-    &::placeholder{
+
+    &::placeholder {
       color: rgba(123, 123, 123, 0.78);
 
     }
-    &.inputSearch{
+
+    &.inputSearch {
       padding-left: 42.5px;
     }
-    &.inputLocation{
+
+    &.inputLocation {
       padding-left: 28px;
     }
- 
+
 
   }
 
@@ -69,20 +79,23 @@
   }
 }
 
-@media only screen and (max-width: $tablets){
-  .wrapper{
-    .form{
+@media only screen and (max-width: $tablets) {
+  .wrapper {
+    .form {
       grid-gap: 7px;
       grid-template-columns: 1fr 1fr 176px;
       grid-template-rows: 1fr 1fr;
     }
-    .searchLabel{
+
+    .searchLabel {
       grid-column: 1/4;
     }
-    .locationLabel{
+
+    .locationLabel {
       grid-column: 1/3;
     }
-    button{
+
+    button {
       grid-column: 3/4;
     }
   }

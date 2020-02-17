@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react';
+import { getSnapshot } from 'mobx-state-tree';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { routes } from 'src/scenes/routes';
@@ -49,8 +50,13 @@ const Login = () => {
 
   const submitHandler = async (evt, { email, password }) => {
     evt.preventDefault();
+    const savedProductsIds = getSnapshot(store.savedProducts.items);
     await store.auth.login.run({ email, password });
     history.push(routes.home);
+    await Promise.all([
+      store.savedProducts.postSavedProducts.run(savedProductsIds),
+      store.savedProducts.fetchSavedProducts.run(),
+    ]);
   };
 
   const refEmail = useRef(null);

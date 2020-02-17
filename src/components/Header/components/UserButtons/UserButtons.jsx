@@ -19,7 +19,7 @@ const UserButtons = ({ headerIsLight }) => {
   const [hoverUser, setHoverUser] = useState(false);
 
   const toggleHover = () => setHoverUser(!hoverUser);
-
+  const hasSaved = store.savedProducts.savedQuantity > 0;
   return (
     <div
       className={cx('wrapper', {
@@ -49,19 +49,20 @@ const UserButtons = ({ headerIsLight }) => {
           Login
         </Link>
       )}
-      <button
+      <Link
+        to={routes.savedProducts}
         className={cx('favorite', 'item')}
-        type="button"
         aria-label="favorite"
       >
         <Icon
           name="favorite"
           fill="white"
+          fillInner={hasSaved ? 'white' : 'transparent'}
           classNameInner={s.favoriteInner}
           classNameOver={s.favoriteOver}
         />
         <span className={s.visuallyHidden}>Favorite</span>
-      </button>
+      </Link>
     </div>
   );
 };

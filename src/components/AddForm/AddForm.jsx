@@ -2,7 +2,11 @@ import { Formik } from 'formik';
 import { observer } from 'mobx-react';
 import { getSnapshot } from 'mobx-state-tree';
 import React, { useEffect, useRef, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import {
+  useHistory,
+  useLocation,
+  generatePath,
+} from 'react-router-dom';
 import { routes } from 'src/scenes/routes';
 import { useStore } from 'src/stores/createStore';
 import * as Yup from 'yup';
@@ -57,8 +61,10 @@ const AddForm = () => {
         });
         await Promise.all(promises);
         values.photos = getSnapshot(store.productAdd.imageURLs);
-        await store.productAdd.addProduct.run(values);
-        history.push(routes.home);
+        const res = await store.productAdd.addProduct.run(values);
+        history.push(
+          generatePath(routes.product, { id: res.data.id }),
+        );
       };
       asyncUploadImages();
     },

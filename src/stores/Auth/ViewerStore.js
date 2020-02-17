@@ -1,13 +1,20 @@
-import { types as t } from 'mobx-state-tree';
+import { types } from 'mobx-state-tree';
 import { UserModel } from './UserModel';
+import { safeReference } from '../utils';
 
-export const ViewerStore = t
+const ViewerModel = UserModel.named('ViewerModel');
+
+export const ViewerStore = types
   .model('ViewerStore', {
-    user: t.maybe(UserModel),
+    userModel: types.maybe(ViewerModel),
+    user: types.maybe(safeReference(ViewerModel)),
   })
   .actions((self) => ({
     setViewer(viewer) {
-      self.user = viewer;
+      self.userModel = viewer;
+      if (viewer) {
+        self.user = +viewer.id;
+      }
     },
     removeViewer() {
       self.user = undefined;

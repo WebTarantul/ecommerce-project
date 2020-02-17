@@ -1,1 +1,13 @@
-/* your css code */
+@import '../../assets/styles/component-base.scss';
+
+.wrapper {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    max-width: 100%;
+  }
+}

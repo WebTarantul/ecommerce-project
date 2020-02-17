@@ -2,6 +2,7 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
 import { routes } from 'src/scenes/routes';
+import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import cn from 'classnames/bind';
 import Icon from '../Icon/Icon';

@@ -18,6 +18,8 @@ export const routes = {
   resetPassword: '/auth/password',
   product: '/products/:id',
   productAdd: '/products/add',
+  userProducts: '/users/:id/products',
+  savedProducts: '/products/saved',
 };
 
 export const PrivateRoute = observer(

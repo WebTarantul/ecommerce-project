@@ -5,48 +5,89 @@ import { observer } from 'mobx-react';
 import { useStore } from 'src/stores/createStore';
 import NotFound from '../NotFound/NotFound';
 import s from './ProductView.module.scss';
+import Icon from '../Icon/Icon';
+import ProductOwner from '../ProductOwner/ProductOwner';
+import withFooter from '../HOCs/withFooter/withFooter';
 
 const ProductView = () => {
   const { id } = useParams();
-  const {
-    entities: { products },
-  } = useStore();
+  const products = useStore((store) => store.entities.products);
 
-  const product = products.collection.get(id);
+  const product = products.get(id);
+
   useEffect(() => {
     if (!product) {
       products.getProduct.run(id);
     }
   }, []);
 
-  return product && !products.getProduct.isLoading ? (
+  if (products.getProduct.isLoading) {
+    return (
+      <div className={s.productView}>
+        <div className={s.inner}>
+          <div className={s.left}>
+            <Sceleton count={10} />
+          </div>
+          <div className={s.right}>
+            <Sceleton />
+            {/* <button>Chat with seller</button> */}
+          </div>
+        </div>
+      </div>
+    );
+  } else if (!product) {
+    return (
+      <div className={s.productView}>
+        <div className={s.inner}>
+          <NotFound text="Product is not found" />
+        </div>
+      </div>
+    );
+  }
+  return (
     <>
       <div className={s.productView}>
         <div className={s.inner}>
           <div className={s.left}>
-            <img src={product.photos[0]} alt={product.title} />
-            <p>{product.title}</p>
+            <article className={s.article}>
+              <figure className={s.imageWrapper}>
+                <img src={product.photos[0]} alt={product.title} />
+                <span className={s.price}>${product.price}</span>
+              </figure>
+              <section className={s.section}>
+                <header className={s.header}>
+                  <h1 className={s.title}>{product.title}</h1>
+                  <time
+                    className={s.date}
+                    dateTime={new Date(
+                      product.createdAt,
+                    ).toISOString()}
+                  >
+                    {new Date(product.createdAt).toUTCString()}
+                  </time>
+                  <address className={s.address}>
+                    <Icon name="pin" />
+                    <span className={s.location}>
+                      {product.location}
+                    </span>
+                  </address>
+                </header>
+                <p className={s.descr}>{product.description}</p>
+              </section>
+            </article>
           </div>
           <div className={s.right}>
-            <button>Chat with seller</button>
+            <aside className={s.owner}>
+              <ProductOwner
+                ownerId={product.ownerId}
+                {...{ product }}
+              />
+            </aside>
           </div>
         </div>
       </div>
     </>
-  ) : (
-    <div className={s.productView}>
-      <div className={s.inner}>
-        <div className={s.left}>
-          <Sceleton count={10} />
-        </div>
-        <div className={s.right}>
-          <Sceleton />
-          {/* <button>Chat with seller</button> */}
-        </div>
-      </div>
-    </div>
-    // <Spinner />
   );
 };
 
-export default observer(ProductView);
+export default withFooter(observer(ProductView));
