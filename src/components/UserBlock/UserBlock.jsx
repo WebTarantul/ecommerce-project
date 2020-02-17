@@ -9,9 +9,9 @@ import ViewerAvatar from '../ViewerAvatar/ViewerAvatar';
 import s from './UserBlock.module.scss';
 
 const UserBlock = ({ hoverUser, user }) => {
-  const store = useStore();
+  const auth = useStore((store) => store.auth);
   const onLogout = () => {
-    store.auth.logout();
+    auth.logout();
   };
   return (
     <CSSTransition

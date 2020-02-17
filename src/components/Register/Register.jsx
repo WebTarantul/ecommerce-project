@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Formik } from 'formik';
 import { observer } from 'mobx-react';
 import React, { useEffect, useRef } from 'react';
@@ -7,17 +8,26 @@ import { useStore } from 'src/stores/createStore';
 import * as Yup from 'yup';
 import CenteringOfForm from '../CenteringOfForm/CenteringOfForm';
 import FErrorMessage from '../FForm/components/FErrorMessage/FErrorMessage';
+import FFormButton from '../FForm/components/FFormButton/FFormButton';
 import FInput from '../FForm/components/FInput/FInput';
 import FForm from '../FForm/FForm';
-import FormButton from '../Form/components/FormButton/FormButton';
 import FormFooter from '../FormFooter/FormFooter';
-import Spinner from '../Spinner';
-import s from './Register.module.scss';
+
+const validationSchema = Yup.object({
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Email is required'),
+  fullName: Yup.string(),
+  password: Yup.string()
+    .min(6, 'Password has to be longer than 6 characters')
+    .required('Password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password')], 'Passwords are not the same!')
+    .required('Password confirmation is required!'),
+});
 
 const Register = () => {
-  const {
-    auth: { register },
-  } = useStore();
+  const register = useStore((store) => store.auth.register);
   const history = useHistory();
 
   const formikProps = {
@@ -28,18 +38,7 @@ const Register = () => {
       confirmPassword: '',
     },
 
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email('Invalid email address')
-        .required('Email is required'),
-      fullName: Yup.string(),
-      password: Yup.string()
-        .min(6, 'Password has to be longer than 6 characters')
-        .required('Password is required'),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password')], 'Passwords are not the same!')
-        .required('Password confirmation is required!'),
-    }),
+    validationSchema,
     onSubmit: async (values, { resetForm }) => {
       await register.run(values);
       resetForm();
@@ -87,11 +86,7 @@ const Register = () => {
               autoComplete="new-password"
             />
             <FErrorMessage name="confirmPassword" />
-            {register.isLoading ? (
-              <Spinner className={s.spinner} />
-            ) : (
-              <FormButton>Register</FormButton>
-            )}
+            <FFormButton>Register</FFormButton>
           </FForm>
         </Formik>
         <FormFooter>

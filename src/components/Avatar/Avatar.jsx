@@ -1,29 +1,18 @@
 import { observer } from 'mobx-react';
 import React from 'react';
+import cn from 'classnames/bind';
+import { getColorFromInitials } from 'src/utils';
+import { useStore } from 'src/stores/createStore';
 import s from './Avatar.module.scss';
 
-const r = Math.floor(Math.random() * 256);
-const g = Math.floor(Math.random() * 256);
-const b = Math.floor(Math.random() * 256);
-const rgb = `rgb(${r},${g},${b})`;
+const cx = cn.bind(s);
 
-const Avatar = ({
-  user,
-  children,
-  size = '40px',
-  className,
-  ...props
-}) => {
-  const initials = user
-    ? user.fullName
-        .split(' ')
-        .map((n) => n[0])
-        .join('')
-    : null;
-
+const Avatar = ({ children, className, ...props }) => {
+  const user = useStore((state) => state.viewer.user);
+  const { initials } = user;
   return user ? (
-    <div className={`${s.wrapper} ${className}`} {...props}>
-      <div className={s.inner} style={{ width: size, height: size }}>
+    <div className={cx('wrapper', className)} {...props}>
+      <div className={s.inner}>
         {user.avatar ? (
           <span
             className={s.avatar}
@@ -33,7 +22,12 @@ const Avatar = ({
             }}
           />
         ) : (
-          <div className={s.name} style={{ backgroundColor: rgb }}>
+          <div
+            className={s.name}
+            style={{
+              backgroundColor: getColorFromInitials(initials),
+            }}
+          >
             <span>{initials}</span>
           </div>
         )}
