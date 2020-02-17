@@ -5,6 +5,7 @@
 import { useFormikContext } from 'formik';
 import { observer } from 'mobx-react';
 import React, { useEffect, useState } from 'react';
+import { removeItemWithIndex } from 'src/utils';
 import Icon from 'src/components/Icon/Icon';
 import { readFileAsync, removeItemWithIndex } from 'src/utils';
 import Spinner from 'src/components/Spinner';

@@ -1,5 +1,10 @@
 module.exports = {
-  extends: ["airbnb", "plugin:testcafe/recommended", "prettier", "prettier/react"],
+  extends: [
+    'airbnb',
+    'plugin:testcafe/recommended',
+    'prettier',
+    'prettier/react',
+  ],
   globals: { fetch: false },
   plugins: ['react', 'testcafe', 'prettier'],
   env: {
@@ -8,7 +13,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['js',],
+        extensions: ['js'],
       },
       alias: {
         map: [['src', './src']],
@@ -32,19 +37,36 @@ module.exports = {
     'class-methods-use-this': 'off',
     'arrow-parens': 'off',
     'no-param-reassign': 0,
-    "no-use-before-define": ["error", { "functions": false, "classes": false }],
-    "no-restricted-syntax": 0,
+    'no-use-before-define': [
+      'error',
+      { functions: false, classes: false },
+    ],
+    'no-restricted-syntax': 0,
     'no-unused-expressions': 'off',
     'prettier/prettier': 'error',
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/forbid-prop-types": 0,
-    "react/require-default-props": 0,
-    "no-unused-expressions": 'error',
-    "react/prop-types": 0,
-    "jsx-a11y/anchor-is-valid": [ "error", {
-      "components": [ "Link" ],
-      "specialLink": [ "to" ]
-    }]
+    'react/jsx-filename-extension': [
+      1,
+      { extensions: ['.js', '.jsx'] },
+    ],
+    'react/forbid-prop-types': 0,
+    'react/require-default-props': 0,
+    'no-unused-expressions': 'error',
+    'react/prop-types': 0,
+    'jsx-a11y/anchor-is-valid': [
+      'error',
+      {
+        components: ['Link'],
+        specialLink: ['to'],
+      },
+    ],
+    'jsx-a11y/label-has-for': [
+      2,
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
+      },
+    ],
   },
   parser: 'babel-eslint',
 };
