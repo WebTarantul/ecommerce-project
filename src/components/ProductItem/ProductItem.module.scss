@@ -1,0 +1,120 @@
+@import '../../assets/styles/component-base.scss';
+
+.item {
+  width: 209px;
+  box-sizing: border-box;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(121, 121, 121, 0.05);
+  border-radius: 4px;
+  border: 1px solid #e4e4e4;
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+.link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+    .img{
+      transform:  scale(1.15);
+    }
+  }
+}
+
+.figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto;
+  width: 202px;
+  height: 148px;
+  overflow: hidden;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  position: relative;
+  background: #e4e4e4;
+}
+.img{
+  transition: 7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  max-width: 100%;
+  max-height: 100%;
+}
+.favorite {
+  position: absolute;
+  top: 132px;
+  right: 6px;
+  z-index: 2;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
+  background-color: #ffffff;
+  outline: none;
+
+  border: none;
+  border-radius: 50%;
+
+  height: 30px;
+  width: 30px;
+  cursor: pointer;    
+
+  svg {
+    transition: all .3s;
+    margin-top: 6px;
+  }
+
+  &:hover {
+    animation: pulse 2s infinite;
+
+    svg {
+
+      transform: scale(1.1)
+    }
+
+    .productOutHeart {
+
+      fill: $accent;
+    }
+  }
+}
+
+.text {
+  display: block;
+  text-align: left;
+  padding: 12px;
+  padding-top: 6px;
+  margin-top: auto;
+}
+
+.name {
+  display: block;
+  color: #373738;
+  font-size: 15px;
+}
+
+.prices {
+  display: block;
+
+  color: #101010;
+  font-family: $font;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 7px;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba($accent, .4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba($accent, .0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba($accent, .0);
+  }
+}

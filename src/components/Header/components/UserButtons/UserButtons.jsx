@@ -26,11 +26,17 @@ const UserButtons = ({ headerIsLight }) => {
         [s.darkText]: headerIsLight,
       })}
     >
-      <Link className={cx('btn', 'item')} to="">
+      <Link
+        className={cx('btn', 'item')}
+        to={{
+          pathname: routes.productAdd,
+          state: { modal: true },
+        }}
+      >
         Sell
       </Link>
 
-      {store.viewer.user ? (
+      {store.auth.isLoggedIn ? (
         <Avatar
           className={s.item}
           onMouseLeave={toggleHover}

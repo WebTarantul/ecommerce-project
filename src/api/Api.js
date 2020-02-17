@@ -34,12 +34,35 @@ export const Auth = {
 
   logout() {
     this._token = null;
+    // eslint-disable-next-line no-undef
     localStorage.removeItem('___token');
+    axios.defaults.headers.common.Authorization = undefined;
   },
 };
 
 export const Account = {
   getUser() {
     return axios.get('/api/account');
+  },
+};
+
+export const Products = {
+  fetchLatest() {
+    return axios.get('/api/products/latest');
+  },
+  fetchProductById(id) {
+    return axios.get(`/api/products/${id}`);
+  },
+  uploadImage(formData) {
+    return axios.post(`/api/upload/images`, formData);
+  },
+  addProduct({ title, description, photos, location, price }) {
+    return axios.post(`/api/products`, {
+      title,
+      description,
+      photos,
+      location,
+      price,
+    });
   },
 };

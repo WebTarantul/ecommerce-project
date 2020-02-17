@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { useField } from 'formik';
-import Icon from 'src/components/Icon/Icon';
-import s from './FPasswordInput.module.scss';
-import FTextInput from '../FTextInput/FTextInput';
 import FPasswordSwitcher from '../FPasswordSwitcher/FPasswordSwitcher';
+import FTextInput from '../FTextInput/FTextInput';
 
 const FPasswordInput = (props) => {
   const [isClosePassword, setIsClosePassword] = useState(true);
@@ -11,12 +8,12 @@ const FPasswordInput = (props) => {
 
   return (
     <>
-      <FTextInput {...props} type={passwordType} >
-        <FPasswordSwitcher  {...{isClosePassword, setIsClosePassword}} />
+      <FTextInput {...props} type={passwordType}>
+        <FPasswordSwitcher
+          {...{ isClosePassword, setIsClosePassword }}
+        />
       </FTextInput>
-
     </>
   );
 };
-
 export default FPasswordInput;

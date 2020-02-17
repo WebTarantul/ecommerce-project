@@ -1,0 +1,31 @@
+@import '../../assets/styles/component-base.scss';
+
+.addForm {
+  width: 100%;
+  box-sizing: border-box;
+
+  .submit {
+    display: block;
+    max-width: 377px;
+    margin: 24px auto 1px auto;
+  }
+}
+
+.inner {
+  background: #ffffff;
+}
+
+.form {
+  max-width: 664px;
+  margin: 0 auto;
+  box-shadow: none;
+}
+
+
+
+.modal {
+  @include container;
+  padding: 0;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}

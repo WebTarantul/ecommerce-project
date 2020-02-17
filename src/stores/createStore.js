@@ -1,8 +1,10 @@
 import { createContext, useContext } from 'react';
 import { RootStore } from './RootStore';
+import { createPersist } from './utils';
 
 export function createStore() {
   const root = RootStore.create();
+
   if (process.env.NODE_ENV === 'development') {
     /* eslint-disable global-require */
     require('mst-middlewares').connectReduxDevtools(
@@ -11,6 +13,10 @@ export function createStore() {
     );
     /* eslint-enable global-require */
   }
+
+  const persistor = createPersist(root);
+  persistor.rehydrate();
+
   return root;
 }
 

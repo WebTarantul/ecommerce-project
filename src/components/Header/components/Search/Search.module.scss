@@ -1,8 +1,7 @@
 @import '../../../../assets/styles/component-base.scss';
 
 .wrapper {
-  @include gaps;
-  max-width: 855px;
+  @include list-container
 }
 .inner{
   padding-bottom: 14px;
