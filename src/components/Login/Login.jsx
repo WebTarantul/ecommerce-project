@@ -1,16 +1,25 @@
+import cn from 'classnames/bind';
 import { observer } from 'mobx-react';
 import { getSnapshot } from 'mobx-state-tree';
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import {
+  generatePath,
+  Link,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 import { routes } from 'src/scenes/routes';
 import { useStore } from 'src/stores/createStore';
 import * as Yup from 'yup';
 import CenteringOfForm from '../CenteringOfForm/CenteringOfForm';
+import ErrorBar from '../ErrorBar/ErrorBar';
 import FormButton from '../Form/components/FormButton/FormButton';
 import FormInput from '../Form/components/FormInput/FormInput';
 import Form from '../Form/Form';
 import FormFooter from '../FormFooter/FormFooter';
 import s from './Login.module.scss';
+
+const cx = cn.bind(s);
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -22,12 +31,14 @@ const schema = Yup.object().shape({
 });
 
 const Login = () => {
+  const [error, setError] = useState(null);
   const store = useStore();
   const history = useHistory();
   const [values, setValues] = useState({
     email: '',
     password: '',
   });
+  const location = useLocation();
   const [errors, setErrors] = useState({});
   const [showError, setShowError] = useState({});
   const [isValid, setIsValid] = useState(false);
@@ -49,14 +60,34 @@ const Login = () => {
   };
 
   const submitHandler = async (evt, { email, password }) => {
-    evt.preventDefault();
-    const savedProductsIds = getSnapshot(store.savedProducts.items);
-    await store.auth.login.run({ email, password });
-    history.push(routes.home);
-    await Promise.all([
-      store.savedProducts.postSavedProducts.run(savedProductsIds),
-      store.savedProducts.fetchSavedProducts.run(),
-    ]);
+    try {
+      evt.preventDefault();
+      const savedProductsIds = getSnapshot(store.savedProducts.items);
+      await store.auth.login.run({ email, password });
+
+      if (location.state && !!location.state.fromInboxButton) {
+        history.push(routes.inbox);
+      } else if (location.state && !!location.state.fromChatButton) {
+        history.push(
+          generatePath(routes.product, {
+            id: location.state.fromProductId,
+          }),
+          {
+            fromChatButton: location.state.fromChatButton,
+          },
+        );
+      } else {
+        history.push(routes.home);
+      }
+
+      await Promise.all([
+        store.savedProducts.postSavedProducts.run(savedProductsIds),
+        store.savedProducts.fetchSavedProducts.run(),
+      ]);
+    } catch (error) {
+      setError(error.response && error.response.data.error);
+      console.error(error);
+    }
   };
 
   const refEmail = useRef(null);
@@ -69,6 +100,7 @@ const Login = () => {
       <CenteringOfForm>
         <Form
           title="Login"
+          className={cx({ error: store.auth.login.isError })}
           onSubmit={(evt) => submitHandler(evt, values)}
         >
           <FormInput
@@ -106,9 +138,18 @@ const Login = () => {
 
         <FormFooter>
           I have no account,{' '}
-          <Link to={routes.register}>register now</Link>
+          <Link
+            to={{ pathname: routes.register, state: location.state }}
+          >
+            register now
+          </Link>
         </FormFooter>
       </CenteringOfForm>
+      {store.auth.login.isError && (
+        <ErrorBar
+          text={`We are sorry but an error occurred: ${error}`}
+        />
+      )}
     </div>
   );
 };

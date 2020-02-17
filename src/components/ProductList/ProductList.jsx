@@ -9,9 +9,14 @@ const ProductList = ({ productList, ...props }) => (
   <div {...props}>
     <div className={s.productList}>
       <ul className={s.list}>
-        {productList.map((item) => {
+        {productList.map((item, index) => {
           if (item) {
-            return <ProductItem key={item.id} product={item} />;
+            return (
+              <ProductItem
+                key={`${item.id}_index:${index}`}
+                product={item}
+              />
+            );
           }
           return null;
         })}

@@ -7,12 +7,13 @@ import s from './Avatar.module.scss';
 
 const cx = cn.bind(s);
 
-const Avatar = ({ children, className, ...props }) => {
+const Avatar = ({ children, size = '40px', className, ...props }) => {
   const user = useStore((state) => state.viewer.user);
+  console.log('user', user);
   const { initials } = user;
   return user ? (
     <div className={cx('wrapper', className)} {...props}>
-      <div className={s.inner}>
+      <div className={s.inner} style={{ width: size, height: size }}>
         {user.avatar ? (
           <span
             className={s.avatar}

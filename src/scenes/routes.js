@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter,
   Redirect,
@@ -52,3 +52,18 @@ export const Router = observer(() => {
     </BrowserRouter>
   );
 });
+
+export const DelayRedirect = ({ delay = 3000, ...props }) => {
+  const [redirect, setRedirect] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setRedirect(true);
+    }, delay);
+  }, []);
+  if (!redirect) {
+    return null;
+  }
+
+  return <Redirect {...props} />;
+};

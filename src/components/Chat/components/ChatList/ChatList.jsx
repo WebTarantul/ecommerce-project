@@ -18,6 +18,7 @@ const ChatList = () => {
 
   return (
     <ul className={s.list}>
+      {chats.items.length === 0 && <h3>You have not chats</h3>}
       {chats.items.map((item) => (
         <ChatItem className={s.item} chat={item} key={item.id} />
       ))}

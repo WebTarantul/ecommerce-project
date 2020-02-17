@@ -2,8 +2,8 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import cn from 'classnames/bind';
-import React, { useState } from 'react';
 import { observer } from 'mobx-react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from 'src/components/Icon/Icon';
 import UserBlock from 'src/components/UserBlock/UserBlock';
@@ -20,14 +20,20 @@ const UserButtons = ({ headerIsLight }) => {
 
   const toggleHover = () => setHoverUser(!hoverUser);
   const hasSaved = store.savedProducts.savedQuantity > 0;
+
   return (
-    <div
-      className={cx('wrapper', {
-        [s.darkText]: headerIsLight,
-      })}
-    >
-      <Link to={routes.inbox}>
-        <Icon name="inbox" circleFill="transparent" />
+    <div className={cx('wrapper', { darkText: headerIsLight })}>
+      <Link
+        to={{
+          pathname: routes.inbox,
+          state: { fromInboxButton: true },
+        }}
+      >
+        <Icon
+          name="inbox"
+          circleFill="transparent"
+          className={s.inboxIcon}
+        />
       </Link>
       <Link
         className={cx('btn', 'item')}

@@ -1,0 +1,12 @@
+@import '../../assets/styles/component-base.scss';
+
+.spinner {
+  margin-top: 24px;
+}
+
+.error {
+  animation: shake 1s;
+  animation-fill-mode: both;
+}
+
+@include shake;

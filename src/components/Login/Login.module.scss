@@ -1,3 +1,5 @@
+@import '../../assets/styles/component-base.scss';
+
 .resetPassword {
   display: block;
   margin-top: 5px;
@@ -6,9 +8,16 @@
   letter-spacing: 0.4px;
 }
 
+.spinner {
+  margin-top: 24px;
+}
+
 .error {
-  display: block;
+  animation: shake 1s;
+  animation-fill-mode: both;
   margin-top: 5px;
   color: #d56e00;
   text-align: right;
 }
+
+@include shake;

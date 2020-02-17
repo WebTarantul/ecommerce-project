@@ -50,6 +50,11 @@ export const Products = {
   fetchLatest() {
     return axios.get('/api/products/latest');
   },
+  fetchMore({ from, limit }) {
+    return axios.get(
+      `/api/products/latest?from=${from}&limit=${limit}`,
+    );
+  },
   fetchProductById(id) {
     return axios.get(`/api/products/${id}`);
   },
