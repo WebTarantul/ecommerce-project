@@ -3,6 +3,7 @@ import { ProductsCollection } from './Products/ProductsCollection';
 import { UsersCollection } from './Users/UserCollection';
 import { ChatsCollection } from './Chats/ChatsCollection';
 import { MessagesCollection } from './Chats/MessagesCollection';
+import { normalize } from 'normalizr';
 
 export const EntitiesStore = types
   .model('EntitiesStore', {
@@ -20,5 +21,12 @@ export const EntitiesStore = types
           self[collectionName].add(id, value);
         });
       });
+    },
+    normalize(items, schema) {
+      const { result, entities } = normalize(items, schema);
+
+      self.merge(entities);
+
+      return result;
     },
   }));

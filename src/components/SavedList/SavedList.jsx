@@ -8,6 +8,7 @@ import withFooter from '../HOCs/withFooter/withFooter';
 
 const SavedList = () => {
   const savedProducts = useStore((store) => store.savedProducts);
+
   useEffect(() => {
     if (
       savedProducts.items.length === 0 ||
@@ -16,9 +17,11 @@ const SavedList = () => {
       savedProducts.fetchSavedProducts.run();
     }
   }, []);
+
   if (savedProducts.fetchSavedProducts.isLoading) {
     return <Spinner />;
   }
+
   return (
     <div className={s.wrapper}>
       <p className={s.title}>

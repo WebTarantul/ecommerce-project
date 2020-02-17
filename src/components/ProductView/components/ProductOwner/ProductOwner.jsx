@@ -6,7 +6,6 @@ import { routes } from 'src/scenes/routes';
 import { useStore } from 'src/stores/createStore';
 import ErrorIndicator from '../../../ErrorIndicator';
 import Icon from '../../../Icon/Icon';
-import Spinner from '../../../Spinner';
 import s from './ProductOwner.module.scss';
 import ChatWithSellerModal from '../ChatWithSellerModal/ChatWithSellerModal';
 
@@ -21,6 +20,7 @@ const ProductOwner = ({ ownerId, product }) => {
       users.fetchUser.run(ownerId);
     }
   }, []);
+
   if (users.fetchUser.isLoading) {
     return <ProductOwnerSceleton />;
   } else if (!user && users.fetchUser.isError) {

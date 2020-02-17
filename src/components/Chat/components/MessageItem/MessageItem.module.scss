@@ -1,0 +1,120 @@
+@import '../../../../assets/styles/component-base.scss';
+
+.wrapper {
+  display: flex;
+  justify-content: flex-start;
+
+  width: 100%;
+  margin-bottom: 20px;
+
+  &:first-child {
+    margin-bottom: 0;
+  }
+}
+
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: default;
+
+
+}
+
+.message {
+  padding: 6px 10px;
+  color: #ffffff;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26.4px;
+  background-color: $accent;
+  border-radius: 5px;
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 9px;
+    height: 9px;
+    background: $accent;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-top: 7px;
+    margin-left: -8px;
+
+  }
+}
+
+.ownerMessage {
+  justify-content: flex-end;
+
+  .message {
+    color: #131314;
+    background: #ffffff;
+
+    &:before {
+      clip-path: polygon(100% 0, 0 0, 0 100%);
+      background: #ffffff;
+      left: unset;
+      right: 0;
+      margin-right: -8px;
+
+    }
+  }
+
+  .inner {
+    align-items: flex-end;
+  }
+}
+
+.timeAgo {
+  display: inline-block;
+  margin-top: 6px;
+  color: #97a3b4;
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+.status {
+  display: block;
+  box-sizing: border-box;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #97a3b4;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-right: -12px;
+
+
+  &.derived {
+    border-color: #15c515;
+
+  }
+
+  &.read {
+    border-color: #15c515;
+    background: #15c515;
+  }
+
+  &.sending {
+    border-color: #97a3b4;
+    animation: pulse 1s infinite;
+
+  }
+
+  &.error {
+    border-color: red;
+    background: red;
+  }
+
+
+}
+
+@include pulse;

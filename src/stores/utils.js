@@ -15,6 +15,7 @@ export function asyncModel(thunk, auto = true) {
     .model('AsyncModel', {
       isLoading: false,
       isError: false,
+      isSuccess: false,
     })
     .actions((self) => ({
       run(...args) {
@@ -31,13 +32,16 @@ export function asyncModel(thunk, auto = true) {
       start() {
         self.isLoading = true;
         self.isError = false;
+        self.isSuccess = false;
       },
       success() {
         self.isLoading = false;
         self.isError = false;
+        self.isSuccess = true;
       },
       error(error) {
         self.isLoading = false;
+        self.isSuccess = false;
         self.isError = true;
         console.error(error);
       },

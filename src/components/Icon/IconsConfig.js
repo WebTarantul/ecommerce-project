@@ -237,4 +237,20 @@ export default {
       </g>
     </svg>
   ),
+  inbox: ({ fill = '#fff', circleFill = '#EB3535' }) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="22"
+      height="22"
+      fill="none"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M16 4H1.99C.88 4 .01 4.89.01 6L0 20c0 1.1.88 2 1.99 2H16c1.1 0 2-.9 2-2V6a2 2 0 00-2-2zm0 12h-3.13c-.47 0-.85.34-.98.8A3.006 3.006 0 019 19c-1.37 0-2.54-.93-2.89-2.2-.13-.46-.51-.8-.98-.8H2V7c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v9z"
+        fill={fill}
+      />
+      <circle cx="17" cy="5" r="5" fill={circleFill} />
+    </svg>
+  ),
 };

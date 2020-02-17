@@ -1,19 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-//import { Test } from './ChatProduct.styles';
+import cn from 'classnames/bind';
 
-const ChatProduct = (props) => (
-  <div className="ChatProductWrapper">
-    Test content
+import s from './ChatProduct.module.scss';
+
+const cx = cn.bind(s);
+
+const ChatProduct = ({
+  product,
+  className,
+  rightIcon: RightIcon,
+  ...props
+}) => (
+  <div className={cx('product', className)}>
+    <img
+      src={(product.photos && product.photos[0]) || '/'}
+      alt={product.title}
+    />
+    <div className={s.right}>
+      <p className={s.title}>{product.title}</p>
+      <p className={s.price}>
+        <b>{product.price}</b>
+      </p>
+    </div>
   </div>
 );
-
-ChatProduct.propTypes = {
-  // bla: PropTypes.string,
-};
-
-ChatProduct.defaultProps = {
-  // bla: 'test',
-};
 
 export default ChatProduct;

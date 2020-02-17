@@ -1,1 +1,32 @@
-/* your css code */
+.product {
+  display: flex;
+  align-items: center;
+
+  img {
+    max-width: 47px;
+    max-height: 47px;
+  }
+
+  .right {
+    padding-left: 8px;
+    position: relative;
+
+
+    p {
+      margin: 0;
+    }
+
+    .title {
+      color: #000000;
+      font-family: Roboto;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-weight: 700;
+    }
+
+  }
+
+}

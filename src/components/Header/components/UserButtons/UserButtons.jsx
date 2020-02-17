@@ -1,17 +1,16 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
-import Icon from 'src/components/Icon/Icon';
-import { routes } from 'src/scenes/routes';
-import UserBlock from 'src/components/UserBlock/UserBlock';
-import { useStore } from 'src/stores/createStore';
-import { observer } from 'mobx-react';
-import Avatar from 'src/components/Avatar/Avatar';
 import cn from 'classnames/bind';
+import React, { useState } from 'react';
+import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
-import s from './UserButtons.module.scss';
+import Icon from 'src/components/Icon/Icon';
+import UserBlock from 'src/components/UserBlock/UserBlock';
 import ViewerAvatar from 'src/components/ViewerAvatar/ViewerAvatar';
+import { routes } from 'src/scenes/routes';
+import { useStore } from 'src/stores/createStore';
+import s from './UserButtons.module.scss';
 
 const cx = cn.bind(s);
 
@@ -27,6 +26,9 @@ const UserButtons = ({ headerIsLight }) => {
         [s.darkText]: headerIsLight,
       })}
     >
+      <Link to={routes.inbox}>
+        <Icon name="inbox" circleFill="transparent" />
+      </Link>
       <Link
         className={cx('btn', 'item')}
         to={{

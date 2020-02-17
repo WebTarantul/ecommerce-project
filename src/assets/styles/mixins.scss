@@ -115,3 +115,37 @@
 
   }
 }
+
+@mixin shadowPulse {
+
+  @keyframes shadowPulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba($accent, .4);
+    }
+
+    70% {
+      box-shadow: 0 0 0 10px rgba($accent, .0);
+    }
+
+    100% {
+      box-shadow: 0 0 0 0 rgba($accent, .0);
+    }
+  }
+}
+
+@mixin pulse {
+
+  @keyframes pulse {
+    0% {
+      transform: scale(.9);
+    }
+
+    70% {
+      transform: scale(1.2);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+}
