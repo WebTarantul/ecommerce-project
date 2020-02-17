@@ -43,6 +43,7 @@ const Login = () => {
       evt.preventDefault();
       const savedProductsIds = getSnapshot(store.savedProducts.items);
       await store.auth.login.run({ email, password });
+
       if (location.state && !!location.state.fromInboxButton) {
         history.push(routes.inbox);
       } else if (location.state && !!location.state.fromChatButton) {
@@ -57,6 +58,7 @@ const Login = () => {
       } else {
         history.push(routes.home);
       }
+
       await Promise.all([
         store.savedProducts.postSavedProducts.run(savedProductsIds),
         store.savedProducts.fetchSavedProducts.run(),

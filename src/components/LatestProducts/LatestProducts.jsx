@@ -12,6 +12,17 @@ const LatestProducts = () => {
     if (latestProducts.items.length === 0) {
       latestProducts.fetchLatest.run();
     }
+    // eslint-disable-next-line no-undef
+    document.body.onscroll = (evt) => {
+      const needFetch = !!(
+        window.innerHeight + document.documentElement.scrollTop ===
+        document.documentElement.offsetHeight
+      );
+
+      if (needFetch) {
+        latestProducts.fetchMore.run();
+      }
+    };
   }, []);
   if (latestProducts.fetchLatest.isError) {
     return <ErrorIndicator />;
@@ -24,6 +35,9 @@ const LatestProducts = () => {
         className={s.productList}
         productList={latestProducts.items}
       />
+      {latestProducts.fetchMore.isLoading && (
+        <Spinner className={s.spinner} />
+      )}
     </div>
   );
 };
