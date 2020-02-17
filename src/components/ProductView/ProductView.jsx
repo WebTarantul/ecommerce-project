@@ -6,8 +6,9 @@ import { useStore } from 'src/stores/createStore';
 import NotFound from '../NotFound/NotFound';
 import s from './ProductView.module.scss';
 import Icon from '../Icon/Icon';
-import ProductOwner from '../ProductOwner/ProductOwner';
-import withFooter from '../HOCs/withFooter/withFooter';
+import ProductOwner, {
+  ProductOwnerSceleton,
+} from './components/ProductOwner/ProductOwner';
 
 const ProductView = () => {
   const { id } = useParams();
@@ -22,19 +23,7 @@ const ProductView = () => {
   }, []);
 
   if (products.getProduct.isLoading) {
-    return (
-      <div className={s.productView}>
-        <div className={s.inner}>
-          <div className={s.left}>
-            <Sceleton count={10} />
-          </div>
-          <div className={s.right}>
-            <Sceleton />
-            {/* <button>Chat with seller</button> */}
-          </div>
-        </div>
-      </div>
-    );
+    return <ProductViewSceleton />;
   } else if (!product) {
     return (
       <div className={s.productView}>
@@ -51,7 +40,10 @@ const ProductView = () => {
           <div className={s.left}>
             <article className={s.article}>
               <figure className={s.imageWrapper}>
-                <img src={product.photos[0]} alt={product.title} />
+                <img
+                  src={(product.photos && product.photos[0]) || ''}
+                  alt={product.title}
+                />
                 <span className={s.price}>${product.price}</span>
               </figure>
               <section className={s.section}>
@@ -90,4 +82,47 @@ const ProductView = () => {
   );
 };
 
-export default withFooter(observer(ProductView));
+export default observer(ProductView);
+
+function ProductViewSceleton() {
+  return (
+    <>
+      <div className={s.productView}>
+        <div className={s.inner}>
+          <div className={s.left}>
+            <article className={s.article}>
+              <figure className={s.imageWrapper}>
+                <Sceleton height="310px" />
+              </figure>
+              <section className={s.section}>
+                <header className={s.header}>
+                  <h1 className={s.title}>
+                    <Sceleton height={20} />
+                  </h1>
+                  <div className={s.date}>
+                    <Sceleton height={16} />
+                  </div>
+                  <div className={s.address}>
+                    <Sceleton circle height={50} width={50} />
+                    <span className={s.location}>
+                      <Sceleton height={14} />
+                    </span>
+                  </div>
+                </header>
+
+                <p className={s.descr}>
+                  <Sceleton count={10} />
+                </p>
+              </section>
+            </article>
+          </div>
+          <div className={s.right}>
+            <aside className={s.owner}>
+              <ProductOwnerSceleton />
+            </aside>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

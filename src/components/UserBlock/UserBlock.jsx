@@ -1,10 +1,11 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import fadeDownRight from 'src/assets/styles/transitions/fadeDownRight.module.scss';
+import { routes } from 'src/scenes/routes';
 import { useStore } from 'src/stores/createStore';
-import Avatar from '../Avatar/Avatar';
+import ViewerAvatar from '../ViewerAvatar/ViewerAvatar';
 import s from './UserBlock.module.scss';
 
 const UserBlock = ({ hoverUser, user }) => {
@@ -21,13 +22,17 @@ const UserBlock = ({ hoverUser, user }) => {
     >
       <div className={s.userBlock}>
         <header className={s.header}>
-          <Avatar />
+          <ViewerAvatar />
           <div className={s.nameBlock}>
             <b className={s.name}>{user.fullName}</b>
             <a className={s.email} href={`mailto:${user.email}`}>
               <span>{user.email}</span>
             </a>
-            <Link to="/">Profile</Link>
+            <Link
+              to={generatePath(routes.userProducts, { id: user.id })}
+            >
+              Profile
+            </Link>
           </div>
         </header>
         <div className={s.links}>

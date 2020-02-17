@@ -12,7 +12,6 @@ export function readFileAsync(file) {
 export function removeItemWithIndex(arr, idx) {
   return [...arr.slice(0, idx), ...arr.slice(idx + 1)];
 }
-
 const colorsArr = [
   'red',
   'black',

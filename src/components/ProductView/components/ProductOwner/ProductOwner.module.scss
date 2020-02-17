@@ -1,4 +1,4 @@
-@import '../../assets/styles/component-base.scss';
+@import '../../../../assets/styles/component-base.scss';
 
 aside {
   display: flex;
@@ -53,6 +53,10 @@ aside {
     display: flex;
     flex-direction: column;
     margin-top: 7px;
+
+    &>span {
+      margin-top: 11px;
+    }
 
     button {
       line-height: 31px;

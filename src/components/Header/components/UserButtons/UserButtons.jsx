@@ -11,6 +11,7 @@ import Avatar from 'src/components/Avatar/Avatar';
 import cn from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import s from './UserButtons.module.scss';
+import ViewerAvatar from 'src/components/ViewerAvatar/ViewerAvatar';
 
 const cx = cn.bind(s);
 
@@ -35,15 +36,14 @@ const UserButtons = ({ headerIsLight }) => {
       >
         Sell
       </Link>
-
       {store.auth.isLoggedIn ? (
-        <Avatar
+        <ViewerAvatar
           className={s.item}
           onMouseLeave={toggleHover}
           onMouseEnter={toggleHover}
         >
           <UserBlock user={store.viewer.user} {...{ hoverUser }} />
-        </Avatar>
+        </ViewerAvatar>
       ) : (
         <Link className={cx('login', 'item')} to={routes.login}>
           Login
@@ -53,6 +53,7 @@ const UserButtons = ({ headerIsLight }) => {
         to={routes.savedProducts}
         className={cx('favorite', 'item')}
         aria-label="favorite"
+        type="button"
       >
         <Icon
           name="favorite"
