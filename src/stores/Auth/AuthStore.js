@@ -1,4 +1,4 @@
-import { types, flow, getRoot, getParent } from 'mobx-state-tree';
+import { getRoot, types } from 'mobx-state-tree';
 import Api from 'src/api';
 import { asyncModel } from '../utils';
 
@@ -20,32 +20,26 @@ export const AuthStore = types
   }));
 
 function login({ email, password }) {
-  return flow(function* loginFlow(flowStore, store, root) {
-    const res = yield Api.Auth.login({ email, password });
+  return async function loginFlow(flowStore, store, root) {
+    const res = await Api.Auth.login({ email, password });
     Api.Auth.setToken(res.data.token);
     root.viewer.setViewer(res.data.user);
     store.setIsLoggedIn(true);
-  });
+  };
 }
 
 function register({ fullName, email, password }) {
-  return flow(function* registerFlow(flowStore) {
-    try {
-      flowStore.start();
-      const {
-        data: { token, user },
-      } = yield Api.Auth.register({
-        fullName,
-        email,
-        password,
-      });
-      Api.Auth.setToken(token);
-      getRoot(flowStore).viewer.setViewer(user);
-      getParent(flowStore).setIsLoggedIn(true);
-      flowStore.success();
-    } catch (error) {
-      // console.error(error.status);
-      flowStore.isError = true;
-    }
-  });
+  return async function registerFlow(flowStore, store, root) {
+    const {
+      data: { token, user },
+    } = await Api.Auth.register({
+      fullName,
+      email,
+      password,
+    });
+
+    Api.Auth.setToken(token);
+    store.setIsLoggedIn(true);
+    root.viewer.setViewer(user);
+  };
 }
