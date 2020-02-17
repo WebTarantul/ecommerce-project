@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import cn from 'classnames/bind';
 import { observer } from 'mobx-react';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -9,7 +10,6 @@ import UserBlock from 'src/components/UserBlock/UserBlock';
 import ViewerAvatar from 'src/components/ViewerAvatar/ViewerAvatar';
 import { routes } from 'src/scenes/routes';
 import { useStore } from 'src/stores/createStore';
-import cn from 'classnames/bind';
 import s from './UserButtons.module.scss';
 
 const cx = cn.bind(s);
@@ -17,6 +17,7 @@ const cx = cn.bind(s);
 const UserButtons = ({ headerIsLight }) => {
   const store = useStore();
   const [hoverUser, setHoverUser] = useState(false);
+
   const toggleHover = () => setHoverUser(!hoverUser);
   const hasSaved = store.savedProducts.savedQuantity > 0;
 
@@ -35,7 +36,7 @@ const UserButtons = ({ headerIsLight }) => {
         />
       </Link>
       <Link
-        className={`${s.btn} ${s.item}`}
+        className={cx('btn', 'item')}
         to={{
           pathname: routes.productAdd,
           state: { modal: true },
@@ -52,14 +53,15 @@ const UserButtons = ({ headerIsLight }) => {
           <UserBlock user={store.viewer.user} {...{ hoverUser }} />
         </ViewerAvatar>
       ) : (
-        <Link className={`${s.login} ${s.item}`} to={routes.login}>
+        <Link className={cx('login', 'item')} to={routes.login}>
           Login
         </Link>
       )}
       <Link
         to={routes.savedProducts}
-        className={`${s.favorite} ${s.item}`}
+        className={cx('favorite', 'item')}
         aria-label="favorite"
+        type="button"
       >
         <Icon
           name="favorite"

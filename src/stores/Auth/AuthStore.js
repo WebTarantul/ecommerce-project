@@ -1,4 +1,4 @@
-import { types, flow, getRoot, getParent } from 'mobx-state-tree';
+import { getRoot, types } from 'mobx-state-tree';
 import Api from 'src/api';
 import { asyncModel } from '../utils';
 
@@ -29,8 +29,7 @@ function login({ email, password }) {
 }
 
 function register({ fullName, email, password }) {
-  return async function registerFlow(flowStore) {
-    flowStore.start();
+  return async function registerFlow(flowStore, store, root) {
     const {
       data: { token, user },
     } = await Api.Auth.register({
@@ -38,9 +37,9 @@ function register({ fullName, email, password }) {
       email,
       password,
     });
+
     Api.Auth.setToken(token);
-    getRoot(flowStore).viewer.setViewer(user);
-    getParent(flowStore).setIsLoggedIn(true);
-    flowStore.success();
+    store.setIsLoggedIn(true);
+    root.viewer.setViewer(user);
   };
 }

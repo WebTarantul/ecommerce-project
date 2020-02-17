@@ -1,6 +1,9 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
 import s from './FFormButton.module.scss';
+import cn from 'classnames/bind';
+
+const cx = cn.bind(s);
 
 const FFormButton = ({ children, className, ...props }) => {
   const formikContext = useFormikContext();
@@ -10,7 +13,7 @@ const FFormButton = ({ children, className, ...props }) => {
   return (
     <button
       type="submit"
-      className={`${s.button} ${className}`}
+      className={cx('button', className)}
       disabled={isDisable}
       {...props}
     >

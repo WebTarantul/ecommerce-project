@@ -2,9 +2,7 @@
 
 .resetPassword {
   display: block;
-
   margin-top: 5px;
-
   color: #8c8c8c;
   text-align: right;
   letter-spacing: 0.4px;
@@ -17,6 +15,9 @@
 .error {
   animation: shake 1s;
   animation-fill-mode: both;
+  margin-top: 5px;
+  color: #d56e00;
+  text-align: right;
 }
 
 @include shake;
